@@ -5,6 +5,10 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+# Config files
+lib/config/api-key-config.json
+lib/config/shared-secret-config.json
+
 # Runtime data
 pids
 *.pid
