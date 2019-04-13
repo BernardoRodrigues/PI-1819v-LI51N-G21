@@ -6,8 +6,9 @@ yarn-debug.log*
 yarn-error.log*
 
 # Config files
-lib/config/api-key-config.json
-lib/config/shared-secret-config.json
+*.lib/config/last-fm-api-key-config.json
+*.lib/config/elastic-search-config.json
+*.lib/config/shared-secret-config.json
 
 # Runtime data
 pids
