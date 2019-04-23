@@ -1,0 +1,211 @@
+{
+	"info": {
+		"_postman_id": "bfeddf12-7946-4c11-ae82-314c54db0100",
+		"name": "YAMA",
+		"description": "Test collection for the YAMA Project.\nIsel 1819 v2 PI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Artists - Offspring",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fa0787ab-310c-49f1-a8c0-4af220374710",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response must be a list of artists\", function () {",
+							"    pm.expect(data).to.be.an('Array');",
+							"});",
+							"",
+							"pm.test(\"If there are artists, each one must be a valid artist\", function() {",
+							"    if (data.length > 0) {",
+							"        for (let i = 0; i < data.length; ++i) {",
+							"            pm.expect(data[i]).to.be.an('object');",
+							"            pm.expect(data[i]).to.have.a.property('mbid');",
+							"            pm.expect(data[i].mbid).to.be.a('String');",
+							"            pm.expect(data[i]).to.have.a.property('name');",
+							"            pm.expect(data[i].name).to.be.a('String');",
+							"            pm.expect(data[i]).to.have.a.property('url');",
+							"            pm.expect(data[i].url).to.be.a('String');",
+							"            pm.expect(data[i]).to.have.a.property('images');",
+							"            pm.expect(data[i].images).to.be.an('Array');",
+							"        }",
+							"    }",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:3000/artists/search/offspring",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"artists",
+						"search",
+						"offspring"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Artist Albums - The Offspring",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fa0787ab-310c-49f1-a8c0-4af220374710",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response must be a list of albums\", function () {",
+							"    pm.expect(data).to.be.an('Array');",
+							"});",
+							"",
+							"pm.test(\"If there are albums, each one must be a valid album\", function() {",
+							"    if (data.length > 0) {",
+							"        for (let i = 0; i < data.length; ++i) {",
+							"            pm.expect(data[i]).to.be.an('object');",
+							"            pm.expect(data[i]).to.have.a.property('name');",
+							"            pm.expect(data[i].name).to.be.a('String');",
+							"            pm.expect(data[i]).to.have.a.property('mbid'); // can not be an album without mbid",
+							"            pm.expect(data[i].mbid).to.be.a('String'); ",
+							"            pm.expect(data[i]).to.have.a.property('url');",
+							"            pm.expect(data[i].url).to.be.a('String');",
+							"            pm.expect(data[i]).to.have.a.property('images');",
+							"            pm.expect(data[i].images).to.be.an('Array');",
+							"            pm.expect(data[i]).to.have.a.property('artist');",
+							"            pm.expect(data[i].artist).to.be.an('object');",
+							"        }",
+							"    }",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:3000/artists/23a03e33-a603-404e-bcbf-2c00159d7067/albums",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"artists",
+						"23a03e33-a603-404e-bcbf-2c00159d7067",
+						"albums"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Album Info - The Offspring Americana",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fa0787ab-310c-49f1-a8c0-4af220374710",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response must be a album object\", function () {",
+							"    pm.expect(data).to.be.an('object');",
+							"});",
+							"",
+							"pm.test(\"If there is an album, it must be a valid album\", function() {",
+							"    pm.expect(data).to.have.a.property('mbid'); // can not be an album without mbid",
+							"    pm.expect(data.mbid).to.be.a('String'); ",
+							"    pm.expect(data).to.be.an('object');",
+							"    pm.expect(data).to.have.a.property('name');",
+							"    pm.expect(data.name).to.be.a('String');",
+							"    pm.expect(data).to.have.a.property('artistName');",
+							"    pm.expect(data.artistName).to.be.a('String');",
+							"    pm.expect(data).to.have.a.property('url');",
+							"    pm.expect(data.url).to.be.a('String');",
+							"    pm.expect(data).to.have.a.property('images');",
+							"    pm.expect(data.images).to.be.an('Array');",
+							"    pm.expect(data).to.have.a.property('tracks');",
+							"    pm.expect(data.tracks).to.be.an('Array');",
+							"",
+							"});",
+							"",
+							"pm.test(\"If there are tracks, each one must be a valid track\", function() {",
+							"    if (data.tracks.length > 0) {",
+							"        for (let i = 0; i < data.length; ++i) {",
+							"            pm.expect(data[i]).to.be.an('object');",
+							"            pm.expect(data[i]).to.have.a.property('name');",
+							"            pm.expect(data[i].name).to.be.a('String');",
+							"            pm.expect(data[i]).to.have.a.property('duration');",
+							"            pm.expect(data[i].duration).to.be.a('Number');",
+							"            pm.expect(data[i]).to.have.a.property('url');",
+							"            pm.expect(data[i].url).to.be.a('String');",
+							"            pm.expect(data[i]).to.have.a.property('artist');",
+							"            pm.expect(data[i].tracks).to.be.an('object');",
+							"        }",
+							"    }",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:3000/albums/c716d82d-6c6e-390c-813b-624728d67991",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"albums",
+						"c716d82d-6c6e-390c-813b-624728d67991"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

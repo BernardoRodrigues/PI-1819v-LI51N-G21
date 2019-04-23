@@ -18,9 +18,14 @@
   "homepage": "https://github.com/BernardoRodrigues/PI-1819v-LI51N-G21#readme",
   "dependencies": {
     "eslint": "^5.16.0",
-    "request": "^2.88.0"
+    "request": "^2.88.0",
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
-    "mocha": "^6.1.3"
+    "mocha": "^6.1.4"
+  },
+  "directories": {
+    "lib": "lib",
+    "test": "test"
   }
 }
