@@ -1,4 +1,5 @@
-const service = require('./../../../lib/services/lastfm-data')
+const request = require('./../../mocks/request-promise-mock')
+const service = require('./../../../lib/services/lastfm-data')(request)
 const Artist = require('./../../../lib/services/model/artist-dto-model')
 const Album = require('./../../../lib/services/model/album-dto-model')
 const assert = require('assert')

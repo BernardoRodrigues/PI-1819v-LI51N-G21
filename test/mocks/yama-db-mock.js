@@ -1,33 +1,35 @@
-module.exports = function() {
+module.exports = function(request) {
 
-    
-
-    function createPlaylist(playlist, cb) {
-        cb({
+    function createPlaylist(playlist) {
+        return new Promise(function(resolve) {
+            resolve({
             "id": "wmqoUGoBA5J2LE2CwWtw",
             "name": playlist.name,
             "description": playlist.description,
             "tracks": []
-        })
+        })})
     }
 
-    function deletePlaylist(playlist, cb) {
-        cb({
+    function deletePlaylist() {
+        return new Promise(function(resolve) {
+            resolve({
             "tracks": []
-        })
+        })})
     }
 
-    function updatePlaylist(playlist, cb) {
-        cb({
+    function updatePlaylist(playlist) {
+        return new Promise(function(resolve) {
+            resolve({
             "id": playlist.id,
             "name": playlist.name,
             "description": playlist.description,
             "tracks": []
-        })
+        })})
     }
 
-    function getPlaylists(cb) {
-        cb([
+    function getPlaylists() {
+        return new Promise(function(resolve) {
+            resolve([
             {
                 "id": "dxcsLWoBkLjY0VBYeo0A",
                 "name": "PlaylistTesting1",
@@ -39,11 +41,12 @@ module.exports = function() {
                 "name": "PlaylistTesting1",
                 "description": "Testing playlist creation",
                 "tracks": []
-            }])
+            }])})
     }
 
-    function getPlaylistInfo(playlist, cb) {
-        cb({
+    function getPlaylistInfo() {
+        return new Promise(function(resolve) {
+            resolve({
             "id": "dhcqLWoBkLjY0VBYGI1w",
             "name": "Testing Something",
             "description": "Testing Something Description",
@@ -70,15 +73,17 @@ module.exports = function() {
                 }
             ],
             "totalDuration": 396
-        })
+        })})
     }
 
-    function addMusic(playlist, cb) {
-        cb(playlist.tracks)
+    function addMusic(playlist) {
+        return new Promise(function(resolve) {
+            resolve(playlist.tracks)})
     }
 
-    function deleteMusic(playlist, cb) {
-        cb(playlist.tracks)
+    function deleteMusic(playlist) {
+        return new Promise(function(resolve) {
+            resolve(playlist.tracks)})
     }
 
     return {

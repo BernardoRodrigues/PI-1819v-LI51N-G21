@@ -1,7 +1,8 @@
-module.exports = function() {
+module.exports = function(request) {
 
-    function getArtists(artist, cb, page = 1) {
-        cb( [
+    function getArtists(artist, page = 1) {
+        return new Promise(function(resolve, reject) {
+            resolve([
             {
                 "name": "Cher",
                 "mbid": "bfcc6d75-a6a5-4bc6-8282-47aec8531818",
@@ -67,11 +68,12 @@ module.exports = function() {
                         "url": "https://lastfm-img2.akamaized.net/i/u/300x300/905628dd9e82cea91b4ed36fffc1890a.png"
                     }
                 ]
-            }])        
-    }
+            }])})   
+        }
 
-    function getTopAlbums(artist, cb, page = 1) {
-        cb( [
+    function getTopAlbums(artist, page = 1) {
+        return new Promise(function(resolve, reject) {
+            resolve( [
             {
                 "name": "Believe",
                 "url": "https://www.last.fm/music/Cher/Believe",
@@ -147,11 +149,12 @@ module.exports = function() {
                         }
                     ]
                 }
-            }]  )      
+            }])}  )      
     }
     
-    function getAlbumInfo(album, cb) {
-        cb(
+    function getAlbumInfo(album) {
+        return new Promise(function(resolve, reject) {
+            resolve(
             {
                 "name": "Believe",
                 "mbid": "63b3a8ca-26f2-4e2b-b867-647a6ec2bebd",
@@ -290,7 +293,7 @@ module.exports = function() {
                     }
                 ]
             }
-        )
+        )})
     }
 
     return {
