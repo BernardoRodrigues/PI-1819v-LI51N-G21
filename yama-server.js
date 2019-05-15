@@ -1,30 +1,33 @@
 'use strict'
 
-const router = require('./lib/router/router')
-const lastFmService = require('./lib/services/lastfm-data')
-const db = require('./lib/services/yama-db')
-const services = require('./lib/yama-services')(lastFmService, db)
-const api = require('./lib/yama-web-api')(services)
-const http = require('http')
+const morgan = require('morgan')
+const express = require('express')
+const app = express()
+const rp = require('request-promise')
+const lastFmService = require('./lib/services/lastfm-data')(rp)
+const db = require('./lib/services/yama-db')(rp)
+const serviceDb = require('./lib/yama-db-service')(db)
+const apiService = require('./lib/yama-lastfm-service')(lastFmService)
+const playlistApi = require('./lib/yama-web-api-playlists')(serviceDb, express.Router())
+const artistApi = require('./lib/yama-web-api-artist')(apiService, express.Router())
+
 const args = process.argv
 
-// if (args.length !== 3) {
-//     throw new Error("Port number must be passed")
-// }
+if (args.length !== 3) {
+    throw new Error("Port number must be passed")
+}
+app.use(morgan)
+app.use(bodyParser.json()); // for parsing application/json
+app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+app.use(artistApi, playlistApi)
+app.use(notFound)
 
-
-const port = 8080
-
-router.get('/artists/search/:name', api.getArtists)
-router.get('/artists/:mbid/albums', api.getTopAlbums)
-router.get('/albums/:mbid', api.getAlbumInfo)
-router.post('/playlists', api.createPlaylist)
-router.delete('/playlists/:playlistId', api.deletePlaylist)
-router.put('/playlists/:playlistId', api.updatePlaylist)
-router.get('/playlists', api.getPlaylists)
-router.get('/playlists/:playlistId', api.getPlaylistInfo)
-router.put('/playlists/:playlistId/track', api.addMusicToPlaylist)
-router.delete('/playlists/:playlistId/track', api.removeMusicFromPlaylist)
-router.error(api.notFound)
-
-http.createServer(router.findEndpoint).listen(port, () => console.log(`server started on port ${port}`))
+function notFound(req, resp) {
+    resp.statusCode = 404
+    resp.setHeader('Content-Type', 'application/json')
+    resp.end(JSON.stringify({
+        message: "Method or Path do not exist",
+        statusCode: 404
+    }))
+}
+app.listen(port, () => console.log(`server started on port ${port}`))
