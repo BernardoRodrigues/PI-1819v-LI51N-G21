@@ -397,28 +397,31 @@ _Pedido:_
 _Body do Pedido:_
 
 ```json
-[
-	{
-        "name": "Swagger Jagger (Hygrade Radio Mix)",
-        "url": "https://www.last.fm/music/Cher+Lloyd/_/Swagger+Jagger+(Hygrade+Radio+Mix)",
-        "duration": "212",
-        "artist": {
-            "name": "Cher Lloyd",
-            "mbid": "48fbfb0b-92ee-45eb-99c2-0bde4c05962e",
-            "url": "https://www.last.fm/music/Cher+Lloyd"
-        }
-    },
-    {
-        "name": "Swagger Jagger (Wideboys Radio Edit)",
-        "url": "https://www.last.fm/music/Cher+Lloyd/_/Swagger+Jagger+(Wideboys+Radio+Edit)",
-        "duration": "184",
-        "artist": {
-            "name": "Cher Lloyd",
-            "mbid": "48fbfb0b-92ee-45eb-99c2-0bde4c05962e",
-            "url": "https://www.last.fm/music/Cher+Lloyd"
-        }
-    }
-]
+{
+    "tracks":
+        [
+	    {
+	        "name": "Swagger Jagger (Hygrade Radio Mix)",
+		"url": "https://www.last.fm/music/Cher+Lloyd/_/Swagger+Jagger+(Hygrade+Radio+Mix)",
+		"duration": "212",
+		"artist": {
+		    "name": "Cher Lloyd",
+		    "mbid": "48fbfb0b-92ee-45eb-99c2-0bde4c05962e",
+		    "url": "https://www.last.fm/music/Cher+Lloyd"
+		}
+	    },
+	    {
+		"name": "Swagger Jagger (Wideboys Radio Edit)",
+		"url": "https://www.last.fm/music/Cher+Lloyd/_/Swagger+Jagger+(Wideboys+Radio+Edit)",
+		"duration": "184",
+		"artist": {
+		    "name": "Cher Lloyd",
+		    "mbid": "48fbfb0b-92ee-45eb-99c2-0bde4c05962e",
+		    "url": "https://www.last.fm/music/Cher+Lloyd"
+		}
+	    }
+	]
+}
 ```
 
 _Retorno:_
