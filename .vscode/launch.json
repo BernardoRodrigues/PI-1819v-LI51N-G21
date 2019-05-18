@@ -8,7 +8,8 @@
             "type": "node",
             "request": "launch",
             "name": "Launch Program",
-            "program": "${workspaceFolder}\\yama-server.js"
+            "program": "${workspaceFolder}\\yama-server.js",
+            "args": ["3000"]
         }
     ]
 }

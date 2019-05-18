@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/BernardoRodrigues/PI-1819v-LI51N-G21#readme",
   "dependencies": {
+    "body-parser": "^1.19.0",
     "express": "^4.16.4",
     "request": "^2.88.0",
     "request-promise": "^4.2.4"
