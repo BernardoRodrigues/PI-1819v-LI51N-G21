@@ -11,6 +11,8 @@ const serviceDb = require('./lib/yama-db-service')(db)
 const serviceArtist = require('./lib/yama-lastfm-service')(lastFmService)
 const playlistApi = require('./lib/yama-web-api-playlists')(serviceDb, express.Router())
 const artistApi = require('./lib/yama-web-api-artist')(serviceArtist, express.Router())
+const pkg = require('./package.json')
+
 
 const args = process.argv
 
@@ -25,8 +27,9 @@ app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({
     extended: true
 })); // for parsing application/x-www-form-urlencoded
-app.use('/playlist', playlistApi)
-app.use('/artist', artistApi)
+app.get('/api/version', (req, res) => res.status(200).send(pkg.version));
+app.use('/api/playlists', playlistApi)
+app.use('/api/artists', artistApi)
 app.use(notFound)
 
 function notFound(req, resp) {
