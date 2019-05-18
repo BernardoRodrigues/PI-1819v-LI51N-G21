@@ -4,7 +4,6 @@ Projecto da Unidade Curricular Programação na Internet (PI)
 ## YAMA API
 Os *endpoints* estão agrupados nas seguintes categorias:
 * Artists
-* Albums
 * Playlists
 
 ***
@@ -12,7 +11,7 @@ Os *endpoints* estão agrupados nas seguintes categorias:
 ## Artists
 Estes *endpoints* são usados para obter informação sobre artista(s).
 
-### GET /artists/search/:name
+### GET /api/artists/search/:name
 Pesquisa por artistas que contenham o nome *name*.
 
 ***Método HTTP:*** GET
@@ -29,7 +28,7 @@ Pesquisa por artistas que contenham o nome *name*.
 
 _Pedido:_
 
-`curl -X GET http://localhost:8080/artists/search/cher`
+`curl -X GET http://localhost:8080/api/artists/search/cher`
 
 _Retorno:_
 
@@ -66,7 +65,7 @@ _Retorno:_
 ]
 ```
 
-### GET /artists/:mbid/albums
+### GET /api/artists/:mbid/albums
 Pesquisa por álbuns do artista com o id *mbid*.
 
 ***Método HTTP:*** GET
@@ -83,7 +82,7 @@ Pesquisa por álbuns do artista com o id *mbid*.
 
 _Pedido:_
 
-`curl -X GET http://localhost:8080/artists/bfcc6d75-a6a5-4bc6-8282-47aec8531818/albums`
+`curl -X GET http://localhost:8080/api/artists/bfcc6d75-a6a5-4bc6-8282-47aec8531818/albums`
 
 _Retorno:_
 ```json
@@ -135,10 +134,7 @@ _Retorno:_
 ]
 ```
 
-## Albums 
-Estes *endpoints* são usados para obter informação sobre álbum(s).
-
-### GET /albums/:mbid
+### GET /api/artists/albums/:mbid
 Pesquisa pelas músicas que compõem o álbum com o id *mbid*.
 
 ***Método HTTP:*** GET
@@ -154,7 +150,7 @@ Pesquisa pelas músicas que compõem o álbum com o id *mbid*.
 
 _Pedido:_
 
-`curl -X GET http://localhost:8080/albums/63b3a8ca-26f2-4e2b-b867-647a6ec2bebd`
+`curl -X GET http://localhost:8080/api/artists/albums/63b3a8ca-26f2-4e2b-b867-647a6ec2bebd`
 
 _Retorno:_
 
@@ -214,7 +210,7 @@ _Retorno:_
 ## Playlists
 Estes *endpoints* são usados para criar, pesquisar e editar _playlists_ e as suas músicas.
 
-### POST /playlists
+### POST /api/playlists
 Cria uma _playlist_.
 
 ***Método HTTP:*** POST
@@ -231,7 +227,7 @@ Cria uma _playlist_.
 
 _Pedido:_
 
-`curl -X POST http://localhost:8080/playlists`
+`curl -X POST http://localhost:8080/api/playlists`
 
 _Body do Pedido:_
 
@@ -253,7 +249,7 @@ _Retorno:_
 }
 ```
 
-### PUT /playlists/:playlistId
+### PUT /api/playlists/:playlistId
 Alterar o nome e/ou a descrição da _playlist_ com o id _playlistId_.
 
 ***Método HTTP:*** PUT
@@ -271,7 +267,7 @@ Alterar o nome e/ou a descrição da _playlist_ com o id _playlistId_.
 
 _Pedido:_
 
-`curl -X PUT http://localhost:8080/playlists/LdFCUWoBX2Y_7Bc7Ivsq`
+`curl -X PUT http://localhost:8080/api/playlists/LdFCUWoBX2Y_7Bc7Ivsq`
 
 _Body do Pedido:_
 
@@ -293,7 +289,7 @@ _Retorno:_
 }
 ```
 
-### DELETE /playlists/:playlistId
+### DELETE /api/playlists/:playlistId
 Eliminar a _playlist_ com o id _playlistId_.
 
 ***Método HTTP:*** DELETE
@@ -319,7 +315,7 @@ _Retorno:_
 }
 ```
 
-### GET /playlists
+### GET /api/playlists
 Listar todas as _playlists_.
 
 ***Método HTTP:*** GET
@@ -334,7 +330,7 @@ Listar todas as _playlists_.
 
 _Pedido:_
 
-`curl -X GET http://localhost:8080/playlists`
+`curl -X GET http://localhost:8080/api/playlists`
 
 _Retorno:_
 
@@ -349,7 +345,7 @@ _Retorno:_
 ]
 ```
 
-### GET /playlists/:playlistId
+### GET /api/playlists/:playlistId
 Apresenta a informação detalhada da _playlist_ com o id _playlistId_.
 
 ***Método HTTP:*** GET
@@ -365,7 +361,7 @@ Apresenta a informação detalhada da _playlist_ com o id _playlistId_.
 
 _Pedido:_
 
-`curl -X GET http://localhost:8080/playlists/LdFCUWoBX2Y_7Bc7Ivsq`
+`curl -X GET http://localhost:8080/api/playlists/LdFCUWoBX2Y_7Bc7Ivsq`
 
 _Retorno:_
 
@@ -379,7 +375,7 @@ _Retorno:_
 }
 ```
 
-### PUT /playlists/:playlistId/track
+### PUT /api/playlists/:playlistId/track
 Adiciona uma ou várias músicas à _playlist_ com o id _playlistId_.
 
 ***Método HTTP:*** PUT
@@ -396,7 +392,7 @@ Adiciona uma ou várias músicas à _playlist_ com o id _playlistId_.
 
 _Pedido:_
 
-`curl -X PUT http://localhost:8080/playlists/LdFCUWoBX2Y_7Bc7Ivsq/track`
+`curl -X PUT http://localhost:8080/api/playlists/LdFCUWoBX2Y_7Bc7Ivsq/track`
 
 _Body do Pedido:_
 
@@ -452,7 +448,7 @@ _Retorno:_
 ]
 ```
 
-### DELETE /playlists/:playlistId/track
+### DELETE /api/playlists/:playlistId/track
 Remover uma ou várias músicas da _playlist_ com o id _playlistId_.
 
 ***Método HTTP:*** DELELE
@@ -469,7 +465,7 @@ Remover uma ou várias músicas da _playlist_ com o id _playlistId_.
 
 _Pedido:_
 
-`curl -X DELETE http://localhost:8080/playlists/LdFCUWoBX2Y_7Bc7Ivsq/track`
+`curl -X DELETE http://localhost:8080/api/playlists/LdFCUWoBX2Y_7Bc7Ivsq/track`
 
 _Body do Pedido:_
 
