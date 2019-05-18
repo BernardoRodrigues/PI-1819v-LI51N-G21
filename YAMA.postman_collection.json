@@ -1,888 +1,478 @@
 {
 	"info": {
-		"_postman_id": "036affca-5dd9-49c7-85e6-08ec2ea11c91",
+		"_postman_id": "8ca021b6-8796-48ea-bc40-994aa9819e02",
 		"name": "YAMA",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "Elasticsearch",
-			"item": [
-				{
-					"name": "Elastic Search - Create Playlist",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"name\": \"PlaylistTesting1\",\n\t\"description\": \"Testing playlist creation\"\n}"
+			"name": "Last Fm - Get Artists",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://ws.audioscrobbler.com/2.0/?method=artist.search&artist=cher&api_key=c67488c7adac3f479bf09adceb0102e9&format=json&page=1",
+					"protocol": "http",
+					"host": [
+						"ws",
+						"audioscrobbler",
+						"com"
+					],
+					"path": [
+						"2.0",
+						""
+					],
+					"query": [
+						{
+							"key": "method",
+							"value": "artist.search"
 						},
-						"url": {
-							"raw": "http://localhost:9200/playlists/playlist/?",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "9200",
-							"path": [
-								"playlists",
-								"playlist",
-								""
-							],
-							"query": [
-								{
-									"key": "",
-									"value": "",
-									"disabled": true
-								},
-								{
-									"key": "",
-									"value": "",
-									"disabled": true
-								}
-							]
+						{
+							"key": "artist",
+							"value": "cher"
 						},
-						"description": "Creates playlist in elastic search"
-					},
-					"response": []
+						{
+							"key": "api_key",
+							"value": "c67488c7adac3f479bf09adceb0102e9"
+						},
+						{
+							"key": "format",
+							"value": "json"
+						},
+						{
+							"key": "page",
+							"value": "1"
+						}
+					]
 				},
-				{
-					"name": "Elastic Search - Get All playlists",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "http://localhost:9200/playlists/playlist/_search?",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "9200",
-							"path": [
-								"playlists",
-								"playlist",
-								"_search"
-							],
-							"query": [
-								{
-									"key": "",
-									"value": "",
-									"disabled": true
-								}
-							]
-						},
-						"description": "Gets all Playlists"
-					},
-					"response": []
-				},
-				{
-					"name": "Elastic Search - Add/Remove Music to Playlist",
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"tracks\": [\n        {\n            \"name\": \"Swagger Jagger (Hygrade Radio Mix)\",\n            \"url\": \"https://www.last.fm/music/Cher+Lloyd/_/Swagger+Jagger+(Hygrade+Radio+Mix)\",\n            \"duration\": \"212\",\n            \"artist\": {\n                \"name\": \"Cher Lloyd\",\n                \"mbid\": \"48fbfb0b-92ee-45eb-99c2-0bde4c05962e\",\n                \"url\": \"https://www.last.fm/music/Cher+Lloyd\"\n            }\n        },\n        {\n            \"name\": \"Swagger Jagger (Wideboys Radio Edit)\",\n            \"url\": \"https://www.last.fm/music/Cher+Lloyd/_/Swagger+Jagger+(Wideboys+Radio+Edit)\",\n            \"duration\": \"184\",\n            \"artist\": {\n                \"name\": \"Cher Lloyd\",\n                \"mbid\": \"48fbfb0b-92ee-45eb-99c2-0bde4c05962e\",\n                \"url\": \"https://www.last.fm/music/Cher+Lloyd\"\n            }\n        }\n    ]\n}"
-						},
-						"url": {
-							"raw": "http://localhost:9200/tracks/track/dhcqLWoBkLjY0VBYGI1w",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "9200",
-							"path": [
-								"tracks",
-								"track",
-								"dhcqLWoBkLjY0VBYGI1w"
-							]
-						},
-						"description": "Adds or removes a track to/from a playlist"
-					},
-					"response": []
-				},
-				{
-					"name": "Elastic Search - Get Tracks",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"tracks\": []\n}"
-						},
-						"url": {
-							"raw": "http://localhost:9200/tracks/track/dhcqLWoBkLjY0VBYGI1w/",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "9200",
-							"path": [
-								"tracks",
-								"track",
-								"dhcqLWoBkLjY0VBYGI1w",
-								""
-							]
-						},
-						"description": "Gets all the tracks from a playlist"
-					},
-					"response": []
-				},
-				{
-					"name": "Elastic Search - Create Tracks Document",
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"tracks\": []\n}"
-						},
-						"url": {
-							"raw": "http://localhost:9200/tracks/track/dxcsLWoBkLjY0VBYeo0A",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "9200",
-							"path": [
-								"tracks",
-								"track",
-								"dxcsLWoBkLjY0VBYeo0A"
-							]
-						},
-						"description": "Creates a tracks document for a playlist"
-					},
-					"response": []
-				},
-				{
-					"name": "Elastic Search - Delete Playlist",
-					"request": {
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\n}"
-						},
-						"url": {
-							"raw": "http://localhost:9200/tracks/track/dhcqLWoBkLjY0VBYGI1w/",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "9200",
-							"path": [
-								"tracks",
-								"track",
-								"dhcqLWoBkLjY0VBYGI1w",
-								""
-							]
-						},
-						"description": "Deletes playlist (id needs to be changed)"
-					},
-					"response": []
-				},
-				{
-					"name": "Elastic Search - Update playlist",
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"name\": \"Testing 101\",\n\t\"description\": \"Testing description 101\"\n}"
-						},
-						"url": {
-							"raw": "http://localhost:9200/playlists/playlist/LgnzR2oBhOAy8TrbwWWd",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "9200",
-							"path": [
-								"playlists",
-								"playlist",
-								"LgnzR2oBhOAy8TrbwWWd"
-							]
-						},
-						"description": "Update playlist name and/or description"
-					},
-					"response": []
-				},
-				{
-					"name": "Elastic Search - Get Playlist Info",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "http://localhost:9200/playlists/playlist/LgnzR2oBhOAy8TrbwWWd/",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "9200",
-							"path": [
-								"playlists",
-								"playlist",
-								"LgnzR2oBhOAy8TrbwWWd",
-								""
-							]
-						},
-						"description": "Geets playlist info"
-					},
-					"response": []
-				}
-			]
+				"description": "Gets artists with certain name from last fm"
+			},
+			"response": []
 		},
 		{
-			"name": "Last Fm",
-			"item": [
-				{
-					"name": "Last Fm - Get Artists",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
+			"name": "Last Fm - Get Top Albums",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&page=1&mbid=48fbfb0b-92ee-45eb-99c2-0bde4c05962e&api_key=c67488c7adac3f479bf09adceb0102e9&format=json",
+					"protocol": "http",
+					"host": [
+						"ws",
+						"audioscrobbler",
+						"com"
+					],
+					"path": [
+						"2.0",
+						""
+					],
+					"query": [
+						{
+							"key": "method",
+							"value": "artist.gettopalbums"
 						},
-						"url": {
-							"raw": "http://ws.audioscrobbler.com/2.0/?method=artist.search&artist=cher&api_key=c67488c7adac3f479bf09adceb0102e9&format=json&page=1",
-							"protocol": "http",
-							"host": [
-								"ws",
-								"audioscrobbler",
-								"com"
-							],
-							"path": [
-								"2.0",
-								""
-							],
-							"query": [
-								{
-									"key": "method",
-									"value": "artist.search"
-								},
-								{
-									"key": "artist",
-									"value": "cher"
-								},
-								{
-									"key": "api_key",
-									"value": "c67488c7adac3f479bf09adceb0102e9"
-								},
-								{
-									"key": "format",
-									"value": "json"
-								},
-								{
-									"key": "page",
-									"value": "1"
-								}
-							]
+						{
+							"key": "page",
+							"value": "1"
 						},
-						"description": "Gets artists with certain name from last fm"
-					},
-					"response": []
+						{
+							"key": "mbid",
+							"value": "48fbfb0b-92ee-45eb-99c2-0bde4c05962e"
+						},
+						{
+							"key": "api_key",
+							"value": "c67488c7adac3f479bf09adceb0102e9"
+						},
+						{
+							"key": "format",
+							"value": "json"
+						}
+					]
 				},
-				{
-					"name": "Last Fm - Get Top Albums",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "http://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&page=1&mbid=48fbfb0b-92ee-45eb-99c2-0bde4c05962e&api_key=c67488c7adac3f479bf09adceb0102e9&format=json",
-							"protocol": "http",
-							"host": [
-								"ws",
-								"audioscrobbler",
-								"com"
-							],
-							"path": [
-								"2.0",
-								""
-							],
-							"query": [
-								{
-									"key": "method",
-									"value": "artist.gettopalbums"
-								},
-								{
-									"key": "page",
-									"value": "1"
-								},
-								{
-									"key": "mbid",
-									"value": "48fbfb0b-92ee-45eb-99c2-0bde4c05962e"
-								},
-								{
-									"key": "api_key",
-									"value": "c67488c7adac3f479bf09adceb0102e9"
-								},
-								{
-									"key": "format",
-									"value": "json"
-								}
-							]
-						},
-						"description": "Gets top albums from artist with certain mbid from last fm"
-					},
-					"response": []
-				},
-				{
-					"name": "Last Fm - Get Album Info",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "http://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=c67488c7adac3f479bf09adceb0102e9&format=json&mbid=488bfc7f-c1a3-4488-b8c6-750ddf2bb157",
-							"protocol": "http",
-							"host": [
-								"ws",
-								"audioscrobbler",
-								"com"
-							],
-							"path": [
-								"2.0",
-								""
-							],
-							"query": [
-								{
-									"key": "method",
-									"value": "album.getinfo"
-								},
-								{
-									"key": "api_key",
-									"value": "c67488c7adac3f479bf09adceb0102e9"
-								},
-								{
-									"key": "format",
-									"value": "json"
-								},
-								{
-									"key": "mbid",
-									"value": "488bfc7f-c1a3-4488-b8c6-750ddf2bb157"
-								}
-							]
-						},
-						"description": "Gets more detailed album information from album with certain mbid from last fm"
-					},
-					"response": []
-				}
-			]
+				"description": "Gets top albums from artist with certain mbid from last fm"
+			},
+			"response": []
 		},
 		{
-			"name": "YAMA",
-			"item": [
-				{
-					"name": "YAMA - Search for Artists",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "824c3993-60c4-44e3-a0ba-058247cce1f7",
-								"exec": [
-									"var data = JSON.parse(responseBody);",
-									"",
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"",
-									"pm.test(\"Response must be a list of artists\", function () {",
-									"    pm.expect(data).to.be.an('Array');",
-									"});",
-									"",
-									"pm.test(\"If there are artists, each one must be a valid artist\", function() {",
-									"    if (data.length > 0) {",
-									"        for (let i = 0; i < data.length; ++i) {",
-									"            pm.expect(data[i]).to.be.an('object');",
-									"            pm.expect(data[i]).to.have.a.property('mbid');",
-									"            pm.expect(data[i].mbid).to.be.a('String');",
-									"            pm.expect(data[i]).to.have.a.property('name');",
-									"            pm.expect(data[i].name).to.be.a('String');",
-									"            pm.expect(data[i]).to.have.a.property('url');",
-									"            pm.expect(data[i].url).to.be.a('String');",
-									"            pm.expect(data[i]).to.have.a.property('images');",
-									"            pm.expect(data[i].images).to.be.an('Array');",
-									"        }",
-									"    }",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
+			"name": "Last Fm - Get Album Info",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=c67488c7adac3f479bf09adceb0102e9&format=json&mbid=488bfc7f-c1a3-4488-b8c6-750ddf2bb157",
+					"protocol": "http",
+					"host": [
+						"ws",
+						"audioscrobbler",
+						"com"
 					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
+					"path": [
+						"2.0",
+						""
+					],
+					"query": [
+						{
+							"key": "method",
+							"value": "album.getinfo"
 						},
-						"url": {
-							"raw": "http://localhost:8080/artists/search/cher",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"artists",
-								"search",
-								"cher"
-							]
+						{
+							"key": "api_key",
+							"value": "c67488c7adac3f479bf09adceb0102e9"
 						},
-						"description": "Searches for artists with name \"cher\""
-					},
-					"response": []
+						{
+							"key": "format",
+							"value": "json"
+						},
+						{
+							"key": "mbid",
+							"value": "488bfc7f-c1a3-4488-b8c6-750ddf2bb157"
+						}
+					]
 				},
-				{
-					"name": "YAMA - Get Albums from artist",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "c4c488ef-a0d9-4ce7-8154-b9fae2fedee8",
-								"exec": [
-									"var data = JSON.parse(responseBody);",
-									"",
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"",
-									"pm.test(\"Response must be a list of albums\", function () {",
-									"    pm.expect(data).to.be.an('Array');",
-									"});",
-									"",
-									"pm.test(\"If there are albums, each one must be a valid album\", function() {",
-									"    if (data.length > 0) {",
-									"        for (let i = 0; i < data.length; ++i) {",
-									"            pm.expect(data[i]).to.be.an('object');",
-									"            pm.expect(data[i]).to.have.a.property('name');",
-									"            pm.expect(data[i].name).to.be.a('String');",
-									"            pm.expect(data[i]).to.have.a.property('mbid'); // can not be an album without mbid",
-									"            pm.expect(data[i].mbid).to.be.a('String'); ",
-									"            pm.expect(data[i]).to.have.a.property('url');",
-									"            pm.expect(data[i].url).to.be.a('String');",
-									"            pm.expect(data[i]).to.have.a.property('images');",
-									"            pm.expect(data[i].images).to.be.an('Array');",
-									"            pm.expect(data[i]).to.have.a.property('artist');",
-									"            pm.expect(data[i].artist).to.be.an('object');",
-									"        }",
-									"    }",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "http://localhost:8080/artists/bfcc6d75-a6a5-4bc6-8282-47aec8531818/albums",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"artists",
-								"bfcc6d75-a6a5-4bc6-8282-47aec8531818",
-								"albums"
-							]
-						},
-						"description": "Gets Top Albums from artist with mbid \"bfcc6d75-a6a5-4bc6-8282-47aec8531818\""
-					},
-					"response": []
+				"description": "Gets more detailed album information from album with certain mbid from last fm"
+			},
+			"response": []
+		},
+		{
+			"name": "Elastic Search - Create Playlist",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"PlaylistTesting1\",\n\t\"description\": \"Testing playlist creation\"\n}"
 				},
-				{
-					"name": "YAMA - Get Album Info",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "d24127d5-1051-456b-abae-96b391b48909",
-								"exec": [
-									"var data = JSON.parse(responseBody);",
-									"",
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"",
-									"pm.test(\"Response must be a album object\", function () {",
-									"    pm.expect(data).to.be.an('object');",
-									"});",
-									"",
-									"pm.test(\"If there is an album, it must be a valid album\", function() {",
-									"    pm.expect(data).to.have.a.property('mbid'); // can not be an album without mbid",
-									"    pm.expect(data.mbid).to.be.a('String'); ",
-									"    pm.expect(data).to.be.an('object');",
-									"    pm.expect(data).to.have.a.property('name');",
-									"    pm.expect(data.name).to.be.a('String');",
-									"    pm.expect(data).to.have.a.property('artistName');",
-									"    pm.expect(data.artistName).to.be.a('String');",
-									"    pm.expect(data).to.have.a.property('url');",
-									"    pm.expect(data.url).to.be.a('String');",
-									"    pm.expect(data).to.have.a.property('images');",
-									"    pm.expect(data.images).to.be.an('Array');",
-									"    pm.expect(data).to.have.a.property('tracks');",
-									"    pm.expect(data.tracks).to.be.an('Array');",
-									"",
-									"});",
-									"",
-									"pm.test(\"If there are tracks, each one must be a valid track\", function() {",
-									"    if (data.tracks.length > 0) {",
-									"        for (let i = 0; i < data.length; ++i) {",
-									"            pm.expect(data[i]).to.be.an('object');",
-									"            pm.expect(data[i]).to.have.a.property('name');",
-									"            pm.expect(data[i].name).to.be.a('String');",
-									"            pm.expect(data[i]).to.have.a.property('duration');",
-									"            pm.expect(data[i].duration).to.be.a('Number');",
-									"            pm.expect(data[i]).to.have.a.property('url');",
-									"            pm.expect(data[i].url).to.be.a('String');",
-									"            pm.expect(data[i]).to.have.a.property('artist');",
-									"            pm.expect(data[i].tracks).to.be.an('object');",
-									"        }",
-									"    }",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
+				"url": {
+					"raw": "http://localhost:9200/playlists/playlist/",
+					"protocol": "http",
+					"host": [
+						"localhost"
 					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
+					"port": "9200",
+					"path": [
+						"playlists",
+						"playlist",
+						""
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
 						},
-						"url": {
-							"raw": "http://localhost:8080/albums/63b3a8ca-26f2-4e2b-b867-647a6ec2bebd",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"albums",
-								"63b3a8ca-26f2-4e2b-b867-647a6ec2bebd"
-							]
-						},
-						"description": "Gets Album information from album with mbid \"63b3a8ca-26f2-4e2b-b867-647a6ec2bebd\""
-					},
-					"response": []
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
 				},
-				{
-					"name": "YAMA - Create Playlist",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "f67ae24d-0410-4bc8-a27e-028b4fcb3ef9",
-								"exec": [
-									"var data = JSON.parse(responseBody);",
-									"",
-									"pm.test(\"Status code is 201\", function () {",
-									"    pm.response.to.have.status(201);",
-									"});",
-									"",
-									"pm.test(\"Response must be a playlist object\", function () {",
-									"    pm.expect(data).to.be.an('object');",
-									"});",
-									"",
-									"pm.test(\"If there is a playlist, it must be a valid playlist\", function() {",
-									"    pm.expect(data).to.have.a.property('id');",
-									"    pm.expect(data.id).to.be.a('String'); ",
-									"    pm.expect(data).to.have.a.property('name');",
-									"    pm.expect(data.name).to.be.a('String');",
-									"    pm.expect(data).to.have.a.property('description');",
-									"    pm.expect(data.description).to.be.a('String');",
-									"    pm.expect(data).to.have.a.property('tracks');",
-									"    pm.expect(data.tracks).to.be.an('Array');",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"name\": \"Testing YAMA\",\n\t\"description\": \"Testing Yama description\"\n}"
-						},
-						"url": {
-							"raw": "http://localhost:8080/playlists",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"playlists"
-							]
-						},
-						"description": "Creates new playlist"
-					},
-					"response": []
+				"description": "Creates playlist in elastic search"
+			},
+			"response": []
+		},
+		{
+			"name": "Elastic Search - Get All playlists",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
 				},
-				{
-					"name": "YAMA - Get All Playlists",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "9129966c-61e6-4254-acbc-78b4c00a868c",
-								"exec": [
-									"var data = JSON.parse(responseBody);",
-									"",
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"",
-									"pm.test(\"Response must be a playlist list\", function () {",
-									"    pm.expect(data).to.be.an('Array');",
-									"});",
-									"",
-									"pm.test(\"If there are playlists, each one must be a valid playlist\", function() {",
-									"    if (data.length > 0) {",
-									"        for (let i = 0; i < data.length; ++i) {",
-									"            pm.expect(data[i]).to.have.a.property('id');",
-									"            pm.expect(data[i].id).to.be.a('String'); ",
-									"            pm.expect(data[i]).to.have.a.property('name');",
-									"            pm.expect(data[i].name).to.be.a('String');",
-									"            pm.expect(data[i]).to.have.a.property('description');",
-									"            pm.expect(data[i].description).to.be.a('String');",
-									"            pm.expect(data[i]).to.have.a.property('tracks');",
-									"            pm.expect(data[i].tracks).to.be.an('Array');",
-									"        }",
-									"    }",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
+				"url": {
+					"raw": "http://localhost:9200/playlists/playlist/_search",
+					"protocol": "http",
+					"host": [
+						"localhost"
 					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "http://localhost:8080/playlists",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"playlists"
-							]
-						},
-						"description": "Gets all playlists"
-					},
-					"response": []
+					"port": "9200",
+					"path": [
+						"playlists",
+						"playlist",
+						"_search"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
 				},
-				{
-					"name": "YAMA - Update Playlist Name Or Description",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "ef4d03ff-dc7f-405e-88c9-ac4d3e75088d",
-								"exec": [
-									"var data = JSON.parse(responseBody);",
-									"",
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"",
-									"pm.test(\"Response must be a playlist object\", function () {",
-									"    pm.expect(data).to.be.an('object');",
-									"});",
-									"",
-									"pm.test(\"If there is a playlist, it must be a valid playlist\", function() {",
-									"    pm.expect(data).to.have.a.property('id');",
-									"    pm.expect(data.id).to.be.a('String'); ",
-									"    pm.expect(data).to.have.a.property('name');",
-									"    pm.expect(data.name).to.be.a('String');",
-									"    pm.expect(data).to.have.a.property('description');",
-									"    pm.expect(data.description).to.be.a('String');",
-									"    pm.expect(data).to.have.a.property('tracks');",
-									"    pm.expect(data.tracks).to.be.an('Array');",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"name\": \"Testing Something\",\n\t\"description\": \"Testing Something Description\"\n}"
-						},
-						"url": {
-							"raw": "http://localhost:8080/playlists/dhcqLWoBkLjY0VBYGI1w",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"playlists",
-								"dhcqLWoBkLjY0VBYGI1w"
-							]
-						},
-						"description": "Updates Playlist name or description"
-					},
-					"response": []
+				"description": "Gets all Playlists"
+			},
+			"response": []
+		},
+		{
+			"name": "Elastic Search - Add/Remove Music to Playlist",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"tracks\": [\n        {\n            \"name\": \"Swagger Jagger (Hygrade Radio Mix)\",\n            \"url\": \"https://www.last.fm/music/Cher+Lloyd/_/Swagger+Jagger+(Hygrade+Radio+Mix)\",\n            \"duration\": \"212\",\n            \"artist\": {\n                \"name\": \"Cher Lloyd\",\n                \"mbid\": \"48fbfb0b-92ee-45eb-99c2-0bde4c05962e\",\n                \"url\": \"https://www.last.fm/music/Cher+Lloyd\"\n            }\n        },\n        {\n            \"name\": \"Swagger Jagger (Wideboys Radio Edit)\",\n            \"url\": \"https://www.last.fm/music/Cher+Lloyd/_/Swagger+Jagger+(Wideboys+Radio+Edit)\",\n            \"duration\": \"184\",\n            \"artist\": {\n                \"name\": \"Cher Lloyd\",\n                \"mbid\": \"48fbfb0b-92ee-45eb-99c2-0bde4c05962e\",\n                \"url\": \"https://www.last.fm/music/Cher+Lloyd\"\n            }\n        }\n    ]\n}"
 				},
-				{
-					"name": "YAMA - Get Playlist Info",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "a9d37a36-8f02-45a2-8122-27dc73215564",
-								"exec": [
-									"var data = JSON.parse(responseBody);",
-									"",
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"",
-									"pm.test(\"Response must be a playlist detail object\", function () {",
-									"    pm.expect(data).to.be.an('object');",
-									"});",
-									"",
-									"pm.test(\"If there is a playlist, it must be a valid playlist\", function() {",
-									"    pm.expect(data).to.have.a.property('id');",
-									"    pm.expect(data.id).to.be.a('String'); ",
-									"    pm.expect(data).to.have.a.property('name');",
-									"    pm.expect(data.name).to.be.a('String');",
-									"    pm.expect(data).to.have.a.property('description');",
-									"    pm.expect(data.description).to.be.a('String');",
-									"    pm.expect(data).to.have.a.property('tracks');",
-									"    pm.expect(data.tracks).to.be.an('Array');",
-									"    pm.expect(data).to.have.a.property('totalDuration');",
-									"    pm.expect(data.totalDuration).to.be.a('Number');",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
+				"url": {
+					"raw": "http://localhost:9200/tracks/track/dhcqLWoBkLjY0VBYGI1w",
+					"protocol": "http",
+					"host": [
+						"localhost"
 					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "http://localhost:8080/playlists/dhcqLWoBkLjY0VBYGI1w",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"playlists",
-								"dhcqLWoBkLjY0VBYGI1w"
-							]
-						},
-						"description": "Gets Playlist Information"
-					},
-					"response": []
-				}
-			],
-			"description": "Tests for all endpoints from YAMA application"
+					"port": "9200",
+					"path": [
+						"tracks",
+						"track",
+						"dhcqLWoBkLjY0VBYGI1w"
+					]
+				},
+				"description": "Adds or removes a track to/from a playlist"
+			},
+			"response": []
+		},
+		{
+			"name": "Elastic Search - Get Tracks",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"tracks\": []\n}"
+				},
+				"url": {
+					"raw": "http://localhost:9200/tracks/track/dhcqLWoBkLjY0VBYGI1w/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9200",
+					"path": [
+						"tracks",
+						"track",
+						"dhcqLWoBkLjY0VBYGI1w",
+						""
+					]
+				},
+				"description": "Gets all the tracks from a playlist"
+			},
+			"response": []
+		},
+		{
+			"name": "Elastic Search - Create Tracks Document",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"tracks\": []\n}"
+				},
+				"url": {
+					"raw": "http://localhost:9200/tracks/track/dxcsLWoBkLjY0VBYeo0A",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9200",
+					"path": [
+						"tracks",
+						"track",
+						"dxcsLWoBkLjY0VBYeo0A"
+					]
+				},
+				"description": "Creates a tracks document for a playlist"
+			},
+			"response": []
+		},
+		{
+			"name": "Elastic Search - Delete Playlist",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\n}"
+				},
+				"url": {
+					"raw": "http://localhost:9200/tracks/track/dhcqLWoBkLjY0VBYGI1w/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9200",
+					"path": [
+						"tracks",
+						"track",
+						"dhcqLWoBkLjY0VBYGI1w",
+						""
+					]
+				},
+				"description": "Deletes playlist (id needs to be changed)"
+			},
+			"response": []
+		},
+		{
+			"name": "Elastic Search - Update playlist",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Testing 101\",\n\t\"description\": \"Testing description 101\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:9200/playlists/playlist/LgnzR2oBhOAy8TrbwWWd",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9200",
+					"path": [
+						"playlists",
+						"playlist",
+						"LgnzR2oBhOAy8TrbwWWd"
+					]
+				},
+				"description": "Update playlist name and/or description"
+			},
+			"response": []
+		},
+		{
+			"name": "Elastic Search - Get Playlist Info",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9200/playlists/playlist/LgnzR2oBhOAy8TrbwWWd/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9200",
+					"path": [
+						"playlists",
+						"playlist",
+						"LgnzR2oBhOAy8TrbwWWd",
+						""
+					]
+				},
+				"description": "Geets playlist info"
+			},
+			"response": []
+		},
+		{
+			"name": "YAMA - Search for Artists",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/artist/search/cher",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"artist",
+						"search",
+						"cher"
+					]
+				},
+				"description": "Searches for artists with name \"cher\""
+			},
+			"response": []
+		},
+		{
+			"name": "YAMA - Get Albums from artist",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/artist/bfcc6d75-a6a5-4bc6-8282-47aec8531818/albums",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"artist",
+						"bfcc6d75-a6a5-4bc6-8282-47aec8531818",
+						"albums"
+					]
+				},
+				"description": "Gets Top Albums from artist with mbid \"bfcc6d75-a6a5-4bc6-8282-47aec8531818\""
+			},
+			"response": []
+		},
+		{
+			"name": "YAMA - Get Album Info",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/artist/album/63b3a8ca-26f2-4e2b-b867-647a6ec2bebd",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"artist",
+						"album",
+						"63b3a8ca-26f2-4e2b-b867-647a6ec2bebd"
+					]
+				},
+				"description": "Gets Album information from album with mbid \"63b3a8ca-26f2-4e2b-b867-647a6ec2bebd\""
+			},
+			"response": []
 		},
 		{
 			"name": "YAMA - Delete music from playlist",
@@ -900,14 +490,14 @@
 					"raw": "[\n            {\n                \"name\": \"Swagger Jagger (Hygrade Radio Mix)\",\n                \"url\": \"https://www.last.fm/music/Cher+Lloyd/_/Swagger+Jagger+(Hygrade+Radio+Mix)\",\n                \"duration\": \"212\",\n                \"artist\": {\n                    \"name\": \"Cher Lloyd\",\n                    \"mbid\": \"48fbfb0b-92ee-45eb-99c2-0bde4c05962e\",\n                    \"url\": \"https://www.last.fm/music/Cher+Lloyd\"\n                }\n            },\n            {\n                \"name\": \"Swagger Jagger (Wideboys Radio Edit)\",\n                \"url\": \"https://www.last.fm/music/Cher+Lloyd/_/Swagger+Jagger+(Wideboys+Radio+Edit)\",\n                \"duration\": \"184\",\n                \"artist\": {\n                    \"name\": \"Cher Lloyd\",\n                    \"mbid\": \"48fbfb0b-92ee-45eb-99c2-0bde4c05962e\",\n                    \"url\": \"https://www.last.fm/music/Cher+Lloyd\"\n                }\n            }\n        ]"
 				},
 				"url": {
-					"raw": "http://localhost:8080/playlists/dhcqLWoBkLjY0VBYGI1w/track",
+					"raw": "http://localhost:8080/playlist/dhcqLWoBkLjY0VBYGI1w/track",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"playlists",
+						"playlist",
 						"dhcqLWoBkLjY0VBYGI1w",
 						"track"
 					]
@@ -917,27 +507,125 @@
 			"response": []
 		},
 		{
-			"name": "YAMA - Delete Playlist",
+			"name": "YAMA - Create Playlist",
 			"request": {
-				"method": "DELETE",
-				"header": [],
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
-					"raw": ""
+					"raw": "{\n\t\"name\": \"Testing YAMA\",\n\t\"description\": \"Testing Yama description\"\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/playlists/LdFCUWoBX2Y_7Bc7Ivsq",
+					"raw": "http://localhost:8080/playlist",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"playlists",
-						"LdFCUWoBX2Y_7Bc7Ivsq"
+						"playlist"
+					]
+				},
+				"description": "Creates new playlist"
+			},
+			"response": []
+		},
+		{
+			"name": "YAMA - Get All Playlists",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/playlist",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"playlist"
+					]
+				},
+				"description": "Gets all playlists"
+			},
+			"response": []
+		},
+		{
+			"name": "YAMA - Delete Playlist",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/playlist/tWpoUGoBA5J2LE2CcGsV",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"playlist",
+						"tWpoUGoBA5J2LE2CcGsV"
 					]
 				},
 				"description": "Deletes Playlist"
+			},
+			"response": []
+		},
+		{
+			"name": "YAMA - Update Playlist Name Or Description",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Testing Something\",\n\t\"description\": \"Testing Something Description\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/playlist/dhcqLWoBkLjY0VBYGI1w",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"playlist",
+						"dhcqLWoBkLjY0VBYGI1w"
+					]
+				},
+				"description": "Updates Playlist name or description"
+			},
+			"response": []
+		},
+		{
+			"name": "YAMA - Get Playlist Info",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/playlist/dhcqLWoBkLjY0VBYGI1w",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"playlist",
+						"dhcqLWoBkLjY0VBYGI1w"
+					]
+				},
+				"description": "Gets Playlist Information"
 			},
 			"response": []
 		},
@@ -954,17 +642,17 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "[\n\t{\n        \"name\": \"Swagger Jagger (Hygrade Radio Mix)\",\n        \"url\": \"https://www.last.fm/music/Cher+Lloyd/_/Swagger+Jagger+(Hygrade+Radio+Mix)\",\n        \"duration\": \"212\",\n        \"artist\": {\n            \"name\": \"Cher Lloyd\",\n            \"mbid\": \"48fbfb0b-92ee-45eb-99c2-0bde4c05962e\",\n            \"url\": \"https://www.last.fm/music/Cher+Lloyd\"\n        }\n    },\n    {\n        \"name\": \"Swagger Jagger (Wideboys Radio Edit)\",\n        \"url\": \"https://www.last.fm/music/Cher+Lloyd/_/Swagger+Jagger+(Wideboys+Radio+Edit)\",\n        \"duration\": \"184\",\n        \"artist\": {\n            \"name\": \"Cher Lloyd\",\n            \"mbid\": \"48fbfb0b-92ee-45eb-99c2-0bde4c05962e\",\n            \"url\": \"https://www.last.fm/music/Cher+Lloyd\"\n        }\n    }\n]"
+					"raw": "[\n\t{\n                \"name\": \"Swagger Jagger (Hygrade Radio Mix)\",\n                \"url\": \"https://www.last.fm/music/Cher+Lloyd/_/Swagger+Jagger+(Hygrade+Radio+Mix)\",\n                \"duration\": \"212\",\n                \"artist\": {\n                    \"name\": \"Cher Lloyd\",\n                    \"mbid\": \"48fbfb0b-92ee-45eb-99c2-0bde4c05962e\",\n                    \"url\": \"https://www.last.fm/music/Cher+Lloyd\"\n                }\n            },\n            {\n                \"name\": \"Swagger Jagger (Wideboys Radio Edit)\",\n                \"url\": \"https://www.last.fm/music/Cher+Lloyd/_/Swagger+Jagger+(Wideboys+Radio+Edit)\",\n                \"duration\": \"184\",\n                \"artist\": {\n                    \"name\": \"Cher Lloyd\",\n                    \"mbid\": \"48fbfb0b-92ee-45eb-99c2-0bde4c05962e\",\n                    \"url\": \"https://www.last.fm/music/Cher+Lloyd\"\n                }\n            }\n]"
 				},
 				"url": {
-					"raw": "http://localhost:8080/playlists/dhcqLWoBkLjY0VBYGI1w/track",
+					"raw": "http://localhost:8080/playlist/dhcqLWoBkLjY0VBYGI1w/track",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"playlists",
+						"playlist",
 						"dhcqLWoBkLjY0VBYGI1w",
 						"track"
 					]
@@ -974,34 +662,24 @@
 			"response": []
 		},
 		{
-			"name": "YAMA - Remove music from playlist",
+			"name": "Elastic Search - Delete Tracks Document",
 			"request": {
 				"method": "DELETE",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "[\n\t{\n\t    \"name\": \"Swagger Jagger (Wideboys Radio Edit)\",\n\t    \"url\": \"https://www.last.fm/music/Cher+Lloyd/_/Swagger+Jagger+(Wideboys+Radio+Edit)\",\n\t    \"duration\": \"184\",\n\t    \"artist\": {\n\t        \"name\": \"Cher Lloyd\",\n\t        \"mbid\": \"48fbfb0b-92ee-45eb-99c2-0bde4c05962e\",\n\t        \"url\": \"https://www.last.fm/music/Cher+Lloyd\"\n\t    }\n\t}\n]"
-				},
+				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/playlists/LdFCUWoBX2Y_7Bc7Ivsq/track",
+					"raw": "http://localhost:9200/tracks/track/dhcqLWoBkLjY0VBYGI1w",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "9200",
 					"path": [
-						"playlists",
-						"LdFCUWoBX2Y_7Bc7Ivsq",
-						"track"
+						"tracks",
+						"track",
+						"dhcqLWoBkLjY0VBYGI1w"
 					]
 				},
-				"description": "Removes music from playlist"
+				"description": "Deletes tracks document from database"
 			},
 			"response": []
 		}
