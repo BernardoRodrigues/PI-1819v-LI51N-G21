@@ -509,7 +509,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/artists/search/cher",
+							"raw": "http://localhost:8080/api/artists/cher",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -518,7 +518,6 @@
 							"path": [
 								"api",
 								"artists",
-								"search",
 								"cher"
 							]
 						},
@@ -881,6 +880,37 @@
 				},
 				{
 					"name": "YAMA - Update Playlist Name Or Description",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "68336e35-aa5e-457e-859e-3d30a9d302b4",
+								"exec": [
+									"var data = JSON.parse(responseBody);",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response must be a playlist object\", function () {",
+									"    pm.expect(data).to.be.an('object');",
+									"});",
+									"",
+									"pm.test(\"If there is a playlist, it must be a valid playlist\", function() {",
+									"    pm.expect(data).to.have.a.property('id');",
+									"    pm.expect(data.id).to.be.a('String'); ",
+									"    pm.expect(data).to.have.a.property('name');",
+									"    pm.expect(data.name).to.be.a('String');",
+									"    pm.expect(data).to.have.a.property('description');",
+									"    pm.expect(data.description).to.be.a('String');",
+									"    pm.expect(data).to.have.a.property('tracks');",
+									"    pm.expect(data.tracks).to.be.an('Array');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "PUT",
 						"header": [
@@ -895,15 +925,16 @@
 							"raw": "{\n\t\"name\": \"Testing Something\",\n\t\"description\": \"Testing Something Description\"\n}"
 						},
 						"url": {
-							"raw": "http://localhost:8080/playlist/dhcqLWoBkLjY0VBYGI1w",
+							"raw": "http://localhost:8080/api/playlists/ZTLezGoBdOgepdp8bd10",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
-								"playlist",
-								"dhcqLWoBkLjY0VBYGI1w"
+								"api",
+								"playlists",
+								"ZTLezGoBdOgepdp8bd10"
 							]
 						},
 						"description": "Updates Playlist name or description"
@@ -1030,6 +1061,31 @@
 							]
 						},
 						"description": "Adds music(s) to playlist"
+					},
+					"response": []
+				},
+				{
+					"name": "YAMA - Get Playlist Info not existing (needs work)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/playlists/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"playlists",
+								"3"
+							]
+						}
 					},
 					"response": []
 				}
