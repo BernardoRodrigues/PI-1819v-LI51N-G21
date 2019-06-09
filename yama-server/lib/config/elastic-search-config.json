@@ -1,0 +1,51 @@
+{
+    "baseUrl": "localhost",
+    "port": "9200",
+    "addMusicScript": {
+        "script": {
+            "lang": "painless",
+            "inline": "if(!ctx._source.tracks.contains(params.track)) {ctx._source.tracks.add(params.track);} ",
+            "params": {
+                "track": {
+
+                }
+            }
+        }
+    },
+    "removeMusicScript": {
+        "script": {
+            "lang": "painless",
+            "inline": "for(t in ctx._source.tracks) { if (t.url == params.trackUrl) { ctx._source.tracks.removeAll(Collections.singleton(t)); break;} }",
+            "params": {
+            }
+        }
+    },
+    "addUserScript": {
+        "script": {
+            "lang": "painless",
+            "inline": "if(!ctx._source.contains(params.user)) {ctx._source.users.add(params.user)}",
+            "params": {
+                "user": {
+
+                }
+            }
+        }
+    },
+    "validateUsernameScript": {
+        "script": {
+            "lang": "painless",
+            "inline": "for(u in ctx._source.users) {if(u.username == params.username) return true;} return false;"
+        }
+    },
+    "validateUserScript": {
+        "script": {
+            "lang": "painless",
+            "inline": "for(u in ctx._source.users) {if(u.username == params.user.username && u.password == params.user.password) return true;} return false;",
+            "params": {
+                "user": {
+                    
+                }
+            }
+        }
+    }
+}

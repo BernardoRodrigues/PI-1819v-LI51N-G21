@@ -83,7 +83,7 @@ module.exports = function (service, router) {
         const name = req.body.name
         const description = req.body.description
         try {
-            return service.updatePlaylist(Playlist.init(playlistId, name || playlist.name, description || playlist.description))
+            return service.updatePlaylist(Playlist.init(playlistId, name, description))
                 .then(mapPlaylistDtoToPlaylist)
                 .then((obj) => {return {result: obj, res: resp, status: 200}})
                 .then(response)

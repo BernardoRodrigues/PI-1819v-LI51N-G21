@@ -19,6 +19,22 @@ module.exports = function() {
         return `${lastFmUrlConfig.baseUrl}/?method=artist.gettopalbums&page=${page}&mbid=${mbid}&${apiKeyQueryString}&format=json`
     }
 
+    function accessUsersEndpoint() {
+        return `http://${elasticSearchUrl}/auth/users`
+    }
+
+    function searchUsersEndpoint() {
+        return `http://${accessUsersEndpoint()}/_search`
+    }
+
+    function getUsersList(usersListId) {
+        return `http://${accessUsersEndpoint()}/${usersListId}`
+    }
+ 
+    function updateUsersEndpoint(usersListId) {
+        return `${accessUsersEndpoint()}/${usersListId}/_update`
+    }
+
     function createPlaylistEndpoint() {
         return `http://${elasticSearchUrl}/playlists/playlist`
     }
@@ -35,6 +51,10 @@ module.exports = function() {
         return `http://${elasticSearchUrl}/playlists/playlist/_search`
     }
 
+    function addAndRemoveTrackEndpoint(id) {
+        return `${accessTrackListEndpoint(id)}/_update`
+    }
+
     function formatWhiteSpace(value) {
         return value.replace(/ /gi, '+')
     }
@@ -43,6 +63,10 @@ module.exports = function() {
         getArtistsEndpoint: getArtistsEndpoint,
         getAlbumInfoEndpoint: getAlbumInfoEndpoint,
         getTopAlbumsEndpoint: getTopAlbumsEndpoint,
+        accessUsersEndpoint: accessUsersEndpoint,
+        updateUsersEndpoint: updateUsersEndpoint,
+        searchUsersEndpoint: searchUsersEndpoint,
+        getUsersList: getUsersList,
         createPlaylistEndpoint: createPlaylistEndpoint,
         deletePlaylistEndpoint: accessPlaylistEndpoint,
         updatePlaylistEndpoint: accessPlaylistEndpoint,
@@ -50,6 +74,7 @@ module.exports = function() {
         createTracksListEndpoint: accessTrackListEndpoint,
         deleteTracksListEndpoint: accessTrackListEndpoint,
         updateTracksListEndpoint: accessTrackListEndpoint,
+        addOrRemoveMusicEndpoint: addAndRemoveTrackEndpoint,
         getTracksListEndpoint: accessTrackListEndpoint,
         getAllPlaylistsEndpoint: getAllPlaylistsEndpoint
     }

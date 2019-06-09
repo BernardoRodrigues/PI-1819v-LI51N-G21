@@ -1,0 +1,41 @@
+<div class="">
+    <img src=images[0].url>
+    <p>{{artistName}} - {{name}}</p>
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Artist</th>
+                <th scope="col">Name</th>
+                <th scope="col">Duration</th>
+                {{#if isUserLoggedIn}}
+                <th scope="col"></th>
+                {{/if}}
+            </tr>
+        </thead>
+        <tbody>
+            {{#each album.tracks as |track|}}
+            <tr>
+                <td>{{track.artist}}</td>
+                <td>{{track.name}}</td>
+                <td>{{track.duration}}</td>
+                {{#if isUserLoggedIn}}
+                <td>
+                    <div class="dropright">
+                        <button type="button" id="addTrackToPlaylistBtn" class="btn btn-outline-primary"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Add to Playlist
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="addTrackToPlaylistBtn">
+                            {{#each playlists as |playlist|}}
+                                <a class="dropdown-item" onclick="addToPlaylist({{playlist.id}}, {{track.url}})">{{playlist.name}}</a>
+                            {{/each}}
+                        </div>
+                    </div>
+
+                </td>
+                {{/if}}
+            </tr>
+        </tbody>
+    </table>
+</div>

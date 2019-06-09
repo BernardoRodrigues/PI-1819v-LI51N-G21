@@ -1,0 +1,72 @@
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Yama</a>
+        <ul>
+            <li class="nav-item">
+                <a href="javascript:history.back()">Back</a>
+            </li>
+        </ul>
+        {{#if isLoggedIn}}
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                {{userName}}
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#playlists">Playlists</a>
+                <a class="dropdown-item" href="#logOff">Log off</a>
+            </div>
+        </li>
+        {{/if}}
+        {{#else}}
+        {{!-- from https://codepen.io/codot/pen/BorNdz --}}
+        <li class="nav-item">
+            <a class="login-sign-up-trigger" href="#" data-target="#login" data-toggle="modal">Login</a>
+
+            <div id="login" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <button data-dismiss="modal" class="close">&times;</button>
+                            <h4>Login</h4>
+                            <form>
+                                <input type="text" name="username" class="username form-control"
+                                    placeholder="Username" />
+                                <input type="password" name="password" class="password form-control"
+                                    placeholder="password" />
+                                <input class="btn login-sign-up" type="submit" value="Login" />
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+
+        <li>
+            <a class="login-sign-up-trigger" href="#" data-target="#signUp" data-toggle="modal">
+                Sign up
+            </a>
+
+            <div id="signUp" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <button data-dismiss="modal" class="close">&times;</button>
+                            <h4>Sign up</h4>
+                            <form>
+                                <input type="text" name="username" class="username form-control"
+                                    placeholder="Username" />
+                                <input type="password" name="password" class="password form-control"
+                                    placeholder="password" />
+                                <input class="btn login-sign-up" type="submit" value="SignUp" />
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+
+
+    </nav>

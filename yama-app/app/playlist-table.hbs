@@ -1,0 +1,21 @@
+<div class="container">
+    <p>Playlists</p>
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each playlists as |playlist|}}
+            {{!-- add on click event to go to playlist --}}
+            <tr>
+                <td>{{playlist.name}}</td>
+                <td>{{playlist.description}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
