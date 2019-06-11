@@ -3,6 +3,24 @@ module.exports = function (elasticSearchService) {
     const InvalidParameterError = require('./invalid-parameter-error')
     const Playlist = require('./model/playlist-model')
     const TrackDto = require('./services/model/track-dto-model')
+    const UserDto = require('./services/model/user-dto-model')
+    const User = require('./model/user-model')
+
+    async function validateLogin(user) {
+        if (!user || !user.username || user.username.length === 0 || !user.password || !user.password.length === 0) {
+            throw new InvalidParameterError("User cannot be empty", 400)
+        }
+        const userDto = UserDto.init(user.username, user.password)
+        return elasticSearchService.validateLogin(userDto)
+    }
+
+    async function signInUser(user) {
+        if (!user || !user.username || user.username.length === 0 || !user.password || !user.password.length === 0) {
+            throw new InvalidParameterError("User cannot be empty", 400)
+        }
+        const userDto = UserDto.init(user.username, user.password)
+        return elasticSearchService.signInUser(userDto)
+    }
 
     async function createPlaylist(playlistDto) {
         if (!playlistDto || !playlistDto.name || playlistDto.name.length === 0) {
@@ -72,6 +90,8 @@ module.exports = function (elasticSearchService) {
 
 
     return {
+        validateLogin: validateLogin,
+        signInUser: signInUser,
         createPlaylist: createPlaylist,
         deletePlaylist: deletePlaylist,
         updatePlaylist: updatePlaylist,

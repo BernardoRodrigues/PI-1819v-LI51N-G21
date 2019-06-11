@@ -7,6 +7,7 @@ module.exports = function (request) {
     const Playlist = require('./model/playlist-dto-model')
     const PlaylistInfo = require('./model/playlist-info-dto-model')
     const Artist = require('./model/artist-dto-model')
+    const User = require('./model/user-dto-model')
     const elasticSearchConfig = require('./../config/elastic-search-config.json')
     let userListId = getUsersListId()
 
@@ -25,11 +26,11 @@ module.exports = function (request) {
 
     function getUsersListId() {
         return request.get(
-            endpoints.searchUsersEndpoint()
-        )
-        .then(mapUsersListId)
-        .then(id => id)
-        .catch(handleError)
+                endpoints.searchUsersEndpoint()
+            )
+            .then(mapUsersListId)
+            .then(id => id)
+            .catch(handleError)
     }
 
     function mapUsersListId(result) {
@@ -37,20 +38,76 @@ module.exports = function (request) {
     }
 
     async function validateUser(user) {
-        if (!user || !user.username  || user.username.length === 0 || !user.password || user.password.length === 0) {
+        if (!user || !user.username || user.username.length === 0 || !user.password || user.password.length === 0) {
             throw new InvalidParametersError('User cannot be empty', 400)
         }
-        const script = elasticSearchConfig.validateUserScript
+        request.get(
+                endpoints.getUsersList(userListId), {
+                    json: true
+                }
+            )
+            .then(mapUsersList)
+            .then(users => checkUserCredentials(users, (u) => u.username === user.username))
+            .catch(handleError)
+
+    }
+
+    async function validateLogin(user) {
+        if (!user || !user.username || user.username.length === 0 || !user.password || user.password.length === 0) {
+            throw new InvalidParametersError('User cannot be empty', 400)
+        }
+        request.get(
+                endpoints.getUsersList(userListId), {
+                    json: true
+                }
+            )
+            .then(mapUsersList)
+            .then(users => 
+                checkUserCredentials(users, (u) => u.username === user.username && u.password === user.password))
+            .catch(handleError)
+    }
+
+    async function signInUser(user) {
+        if (!user || !user.username || user.username.length === 0 || !user.password || user.password.length === 0) {
+            throw new InvalidParametersError('User cannot be empty', 400)
+        }
+        const result = await validateUser(user)
+        if (result) {
+            throw new InvalidParametersError("User already exists", 400)
+        }
+        const playlistsId = await request.post(
+            endpoints.createPlaylistEndpoint(),
+            {
+                body: {playlists: []},
+                json: true
+            }
+        )
+        .then(res => res._id)
+        .catch(handleError)
+        const script = elasticSearchConfig.addUserScript
         script.params.user['username'] = user.username
         script.params.user['password'] = user.password
-        request.post(
-            endpoints.updateUsersEndpoint(),
+        script.params.user['playlistsId'] = playlistsId
+        return request.post(
+            endpoints.updateUsersEndpoint(userListId),
             {
                 body: script,
                 json: true
             }
-        ).then()
-        
+        )
+        .then(_ => user.playlistsId = playlistsId)
+        .then(_ => user)
+        .catch(handleError)
+    }
+
+    function checkUserCredentials(users, predicate) {
+        const result = users.find(predicate)
+        return result ? true : false
+    }
+
+
+    function mapUsersList(result) {
+        return result._source.users.map(u => User.init(u.username, u.password, u.playlistsListId))
     }
 
     async function createPlaylist(playlist) {
@@ -177,13 +234,15 @@ module.exports = function (request) {
     async function addMusic(playlist) {
         if (!playlist || !playlist.id || playlist.id.length === 0)
             throw new InvalidParametersError('Playlist id is required', 400)
-        if (!playlist.tracks || playlist.tracks.length === 0)
+        if (!playlist.tracks || playlist.tracks.length === 0 || )
             throw new InvalidParametersError('Can not add empty music list is required', 400)
         const script = elasticSearchConfig.addMusicScript
         script.params.track = playlist.tracks[0]
         return request.post(
                 endpoints.addOrRemoveMusicEndpoint(playlist.id), {
-                    body: {script},
+                    body: {
+                        script
+                    },
                     json: true
                 })
             .then(() => {
@@ -198,6 +257,9 @@ module.exports = function (request) {
     async function deleteMusic(playlist) {
         if (!playlist || !playlist.id || playlist.id.length === 0)
             throw new InvalidParametersError('Playlist id is required', 400)
+        if (!playlist.tracks || playlist.tracks.length === 0 || !playlist.tracks[0].url || playlist.tracks[0].url.length === 0) {
+            throw new InvalidParametersError('A track url is required', 400)
+        }
         const script = elasticSearchConfig.removeMusicScript
         script.params['trackUrl'] = playlist.tracks[0].url
         return request
@@ -222,9 +284,6 @@ module.exports = function (request) {
         }
     }
 
-    function mapUserValidation(result) {
-        return result
-    }
 
     function mapPlaylist(playlist) {
         return Playlist.init(playlist.id, playlist.name, playlist.description, playlist.tracks || [])
@@ -286,6 +345,8 @@ module.exports = function (request) {
     }
 
     return {
+        validateLogin: validateLogin,
+        signInUser: signInUser,
         createPlaylist: createPlaylist,
         deletePlaylist: deletePlaylist,
         updatePlaylist: updatePlaylist,

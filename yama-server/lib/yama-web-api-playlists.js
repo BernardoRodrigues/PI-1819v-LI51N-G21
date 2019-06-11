@@ -1,4 +1,4 @@
-module.exports = function (service, router) {
+module.exports = function (service, router, globalRouter) {
 
     if (!service)
         throw new Error("Service must be injected")
@@ -19,6 +19,8 @@ module.exports = function (service, router) {
 
     router.put('/:playlistId/track', addMusicToPlaylist)
     router.delete('/:playlistId/track', removeMusicFromPlaylist)
+
+    // globalRouter.use(router)
 
     function createPlaylist(req, resp) {
         const name = req.body.name
@@ -167,12 +169,11 @@ module.exports = function (service, router) {
 
     function addMusicToPlaylist(req, resp) {
         const playlistId = req.params.playlistId
-        const tracks = req.body.tracks
+        const track = req.body.track
         try {
             return service
                 .addMusicToPlaylist(
-                    Playlist.init(playlistId, undefined, undefined,
-                        tracks.map(t => Track.init(t.name, t.url, t.duration, t.artist))))
+                    Playlist.init(playlistId, undefined, undefined, [Track.init(track.name, track.url, track.duration, track.artist)]))
                 .then(mapMultipleTracksDtoToTrack)
                 .then((obj) => {return {result: obj, res: resp, status: 200}})
                 .then(response)
@@ -199,12 +200,11 @@ module.exports = function (service, router) {
 
     function removeMusicFromPlaylist(req, resp) {
         const playlistId = req.params.playlistId
-        const tracks = req.body.tracks
+        const trackUrl = req.body.trackUrl
         try {
             return service
                 .removeMusicFromPlaylist(
-                    Playlist.init(playlistId, undefined, undefined,
-                        tracks.map(t => Track.init(t.name, t.url, t.duration, t.artist))))
+                    Playlist.init(playlistId, undefined, undefined, [Track.init(null, trackUrl, null, null, null)]))
                 .then(mapMultipleTracksDtoToTrack)
                 .then((obj) => {return {result: obj, res: resp, status: 200}})
                 .then(response)

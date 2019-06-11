@@ -35,6 +35,10 @@ module.exports = function() {
         return `${accessUsersEndpoint()}/${usersListId}/_update`
     }
 
+    function createPlaylistsListEndpoint() {
+        return `http://${elasticSearchUrl}/users/playlists`
+    }
+
     function createPlaylistEndpoint() {
         return `http://${elasticSearchUrl}/playlists/playlist`
     }
@@ -67,6 +71,7 @@ module.exports = function() {
         updateUsersEndpoint: updateUsersEndpoint,
         searchUsersEndpoint: searchUsersEndpoint,
         getUsersList: getUsersList,
+        createPlaylistsListEndpoint: createPlaylistsListEndpoint,
         createPlaylistEndpoint: createPlaylistEndpoint,
         deletePlaylistEndpoint: accessPlaylistEndpoint,
         updatePlaylistEndpoint: accessPlaylistEndpoint,
