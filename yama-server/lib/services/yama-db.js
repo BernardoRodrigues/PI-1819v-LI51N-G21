@@ -62,7 +62,7 @@ module.exports = function (request) {
                 }
             )
             .then(mapUsersList)
-            .then(users => 
+            .then(users =>
                 checkUserCredentials(users, (u) => u.username === user.username && u.password === user.password))
             .catch(handleError)
     }
@@ -76,28 +76,28 @@ module.exports = function (request) {
             throw new InvalidParametersError("User already exists", 400)
         }
         const playlistsId = await request.post(
-            endpoints.createPlaylistEndpoint(),
-            {
-                body: {playlists: []},
-                json: true
-            }
-        )
-        .then(res => res._id)
-        .catch(handleError)
+                endpoints.createPlaylistEndpoint(), {
+                    body: {
+                        playlists: []
+                    },
+                    json: true
+                }
+            )
+            .then(res => res._id)
+            .catch(handleError)
         const script = elasticSearchConfig.addUserScript
-        script.params.user['username'] = user.username
-        script.params.user['password'] = user.password
-        script.params.user['playlistsId'] = playlistsId
+        script.script.params.user['username'] = user.username
+        script.script.params.user['password'] = user.password
+        script.script.params.user['playlistsId'] = playlistsId
         return request.post(
-            endpoints.updateUsersEndpoint(userListId),
-            {
-                body: script,
-                json: true
-            }
-        )
-        .then(_ => user.playlistsId = playlistsId)
-        .then(_ => user)
-        .catch(handleError)
+                endpoints.updateUsersEndpoint(userListId), {
+                    body: script,
+                    json: true
+                }
+            )
+            .then(_ => user.playlistsId = playlistsId)
+            .then(_ => user)
+            .catch(handleError)
     }
 
     function checkUserCredentials(users, predicate) {
@@ -110,9 +110,11 @@ module.exports = function (request) {
         return result._source.users.map(u => User.init(u.username, u.password, u.playlistsListId))
     }
 
-    async function createPlaylist(playlist) {
+    async function createPlaylist(playlist, user) {
         if (!playlist || !playlist.name || playlist.name.length === 0)
             throw new InvalidParametersError('Playlist name is required', 400)
+        if (!user || !user.playlistsId || !user.playlistsId.length === 0)
+            throw new InvalidParametersError('User is required', 400)
         const body = {
             name: playlist.name,
             description: playlist.description
@@ -120,13 +122,26 @@ module.exports = function (request) {
         const result = await request
             .post(endpoints.createPlaylistEndpoint(), {
                 body: body,
-                json: true,
-
+                json: true
             })
+            .catch(handleError)
+        const script = elasticSearchConfig.addNewPlaylistToList
+        script.script.params['playlist'] = {
+            id: result._id,
+            name: playlist.name
+        }
+        request
+            .post(
+                endpoints.updatePlaylistsListEndpoint(result._id), {
+                    body: script,
+                    json: true
+                }
+            )
             .catch(handleError)
         const tracks = {
             tracks: []
-        };
+        }
+
         return request
             .put(endpoints.createTracksListEndpoint(result._id), {
                 body: tracks,
@@ -143,7 +158,7 @@ module.exports = function (request) {
             .catch(handleError)
     }
 
-    async function deletePlaylist(playlist) {
+    async function deletePlaylist(playlist, user) {
         if (!playlist || !playlist.id || playlist.id.length === 0)
             throw new InvalidParametersError('Playlist id is required', 400)
         const result = await request.delete(endpoints.deleteTracksListEndpoint(playlist.id), {
@@ -151,7 +166,7 @@ module.exports = function (request) {
 
             })
             .catch(handleError)
-        return request.delete(endpoints.deletePlaylistEndpoint(playlist.id), {
+        request.delete(endpoints.deletePlaylistEndpoint(playlist.id), {
                 json: true,
 
             })
@@ -162,6 +177,16 @@ module.exports = function (request) {
                 }
             })
             .then(mapDeletePlaylistResponse)
+            .catch(handleError)
+        const script = elasticSearchConfig.deletePlaylistFromList
+        script.script.params['playlistsId'] = user.playlistsId
+        return request
+            .post(
+                endpoints.updatePlaylistsListEndpoint(user.playlistsId), {
+                    body: script,
+                    json: true
+                }
+            )
             .catch(handleError)
     }
 
@@ -183,9 +208,10 @@ module.exports = function (request) {
             .catch(handleError)
     }
 
-    async function getPlaylists() {
+    async function getPlaylists(user) {
+
         return request
-            .get(endpoints.getAllPlaylistsEndpoint(), {
+            .get(endpoints.get, {
                 json: true,
 
             })
@@ -237,7 +263,7 @@ module.exports = function (request) {
         if (!playlist.tracks || playlist.tracks.length === 0 || )
             throw new InvalidParametersError('Can not add empty music list is required', 400)
         const script = elasticSearchConfig.addMusicScript
-        script.params.track = playlist.tracks[0]
+        script.script.params.track = playlist.tracks[0]
         return request.post(
                 endpoints.addOrRemoveMusicEndpoint(playlist.id), {
                     body: {
@@ -261,7 +287,7 @@ module.exports = function (request) {
             throw new InvalidParametersError('A track url is required', 400)
         }
         const script = elasticSearchConfig.removeMusicScript
-        script.params['trackUrl'] = playlist.tracks[0].url
+        script.script.params['trackUrl'] = playlist.tracks[0].url
         return request
             .post(endpoints.addOrRemoveMusicEndpoint(playlist.id), {
                 body: script,
@@ -290,11 +316,9 @@ module.exports = function (request) {
     }
 
     function mapMultiplePlaylists(result) {
-        return result.hits.hits.map((p) => mapPlaylist({
-            id: p._id,
-            name: p._source.name,
-            description: p._source.description,
-            tracks: p._source.tracks
+        return result._source.playlists.map((p) => mapPlaylist({
+            id: p.id,
+            name: p.name
         }))
     }
 

@@ -1,4 +1,4 @@
-<div class="">
+<div id="album-info">
     <img src=images[0].url>
     <p>{{artistName}} - {{name}}</p>
 
@@ -13,13 +13,13 @@
                 {{/if}}
             </tr>
         </thead>
-        <tbody>
+        <tbody id="album-info-table-body">
             {{#each album.tracks as |track|}}
             <tr>
                 <td>{{track.artist}}</td>
                 <td>{{track.name}}</td>
                 <td>{{track.duration}}</td>
-                {{#if isUserLoggedIn}}
+                {{#if username}}
                 <td>
                     <div class="dropright">
                         <button type="button" id="addTrackToPlaylistBtn" class="btn btn-outline-primary"

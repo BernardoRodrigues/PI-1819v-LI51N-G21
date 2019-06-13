@@ -22,20 +22,28 @@ module.exports = function (elasticSearchService) {
         return elasticSearchService.signInUser(userDto)
     }
 
-    async function createPlaylist(playlistDto) {
+    async function createPlaylist(playlistDto, userDto) {
         if (!playlistDto || !playlistDto.name || playlistDto.name.length === 0) {
             throw new InvalidParameterError("Playlist name cannot be empty", 400)
         }
+        if (!userDto || !userDto.playlistsId || !userDto.playlistsId.length === 0) {
+            throw new InvalidParameterError("User cannot be empty", 400)
+        }
+        const user = User.init(userDto.username, userDto.password, userDto.playlistsId)
         const playlist = mapPlaylistToPlaylistDto(playlistDto)
-        return elasticSearchService.createPlaylist(playlist)
+        return elasticSearchService.createPlaylist(playlist, user)
     }
 
-    async function deletePlaylist(playlistDto) {
+    async function deletePlaylist(playlistDto, userDto) {
         if (!playlistDto || !playlistDto.id || playlistDto.id.length === 0) {
             throw new InvalidParameterError("Playlist id cannot be empty", 400)
         }
+        if (!userDto || !userDto.playlistsId || userDto.playlistsId.length === 0) {
+            throw new InvalidParameterError("User cannot be empty", 400)
+        }
         const playlist = mapPlaylistToPlaylistDto(playlistDto)
-        return elasticSearchService.deletePlaylist(playlist)
+        const user = UserDto.init(userDto.username, userDto.password, userDto.playlistsId)
+        return elasticSearchService.deletePlaylist(playlist, user)
     }
 
     async function updatePlaylist(playlistDto) {
@@ -46,8 +54,12 @@ module.exports = function (elasticSearchService) {
         return elasticSearchService.updatePlaylist(playlist)
     }
 
-    async function getPlaylists() {
-        return elasticSearchService.getPlaylists()
+    async function getPlaylists(userDto) {
+        if (!userDto || !userDto.playlistsId || userDto.playlistsId.length === 0) {
+            throw new InvalidParameterError("User cannot be empty", 400)
+        }
+        const user = UserDto.init(userDto.username, userDto.password, userDto.playlistsId)
+        return elasticSearchService.getPlaylists(user)
     }
 
     async function getPlaylistInfo(playlistDto) {

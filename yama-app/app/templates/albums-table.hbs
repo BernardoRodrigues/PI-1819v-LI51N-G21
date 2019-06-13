@@ -1,19 +1,19 @@
-<table class="table table-hover">
+<table id="albums-table" class="table table-hover">
     <thead>
         <tr>
             <th scope="col"></th>
             <th scope="col">Name</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody id="albums-table-body">
         {{#each albums as |album|}}
 
         {{!-- add onclick to see songs --}}
-          <tr>
-              <td>
-                <td><img src=album.images[0].url></td>
-                <td>{{album.name}}</td>
-          </tr>  
+        <tr>
+            <td hidden>{{album.mbid}}</td>
+            <td><img src=album.images[0].url></td>
+            <td>{{album.name}}</td>
+        </tr>
         {{/each}}}}
     </tbody>
 

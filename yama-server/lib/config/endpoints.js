@@ -39,6 +39,14 @@ module.exports = function() {
         return `http://${elasticSearchUrl}/users/playlists`
     }
 
+    function getAllPlaylistsEndpoint() {
+        return `${createPlaylistsListEndpoint()}/_search`
+    }
+
+    function updatePlaylistsListEndpoint(playlistListId) {
+        return `${createPlaylistsListEndpoint()}/${playlistListId}/_update`
+    }
+
     function createPlaylistEndpoint() {
         return `http://${elasticSearchUrl}/playlists/playlist`
     }
@@ -49,10 +57,6 @@ module.exports = function() {
 
     function accessTrackListEndpoint(playlistId) {
         return `http://${elasticSearchUrl}/tracks/track/${playlistId}`
-    }
-
-    function getAllPlaylistsEndpoint() {
-        return `http://${elasticSearchUrl}/playlists/playlist/_search`
     }
 
     function addAndRemoveTrackEndpoint(id) {
@@ -72,6 +76,7 @@ module.exports = function() {
         searchUsersEndpoint: searchUsersEndpoint,
         getUsersList: getUsersList,
         createPlaylistsListEndpoint: createPlaylistsListEndpoint,
+        updatePlaylistsListEndpoint: updatePlaylistsListEndpoint,
         createPlaylistEndpoint: createPlaylistEndpoint,
         deletePlaylistEndpoint: accessPlaylistEndpoint,
         updatePlaylistEndpoint: accessPlaylistEndpoint,

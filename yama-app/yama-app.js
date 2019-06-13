@@ -11,7 +11,7 @@ const routes = require('./app/routes')
     const header = document.querySelector('#nav-content')
     let username;
     let playlistsId;
-    header.addEventListener('hashchange', showHeader);      ?
+          //?
     window.addEventListener('hashchange', showView);
     showView();
     showHeader();

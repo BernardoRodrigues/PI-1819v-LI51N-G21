@@ -20,6 +20,23 @@
             }
         }
     },
+    "addNewPlaylistToList": {
+        "script": {
+            "lang":"painless",
+            "inline": "ctx._source.playlists.add(params.playlist)",
+            "params": {
+
+            }
+        }
+    },
+    "deletePlaylistFromList": {
+        "script": {
+            "lang": "painless",
+            "inline": "for(p in ctx._source.playlists) { if (p.id === params.playlistId) { ctx._source.playlists.remove(p); break; } }",
+            "params": {
+            }
+        }
+    },
     "addUserScript": {
         "script": {
             "lang": "painless",

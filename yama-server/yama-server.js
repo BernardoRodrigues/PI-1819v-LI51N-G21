@@ -5,7 +5,7 @@ const bodyParser = require('body-parser')
 const path = require('path')
 const passport = require('passport')
 const session = require('express-session')
-const store = require('express-file-store')
+const FileStore = require('express-file-store')(session)
 const express = require('express')
 const app = express()
 const rp = require('request-promise')
@@ -37,7 +37,17 @@ const version = `v${pkg.version.toString()}`
 // }))
 // passport.deserializeUser()
 // app.use(passport.)
+app.use(session({
+    resave: false, 
+    saveUninitialized: true,
+    store: new FileStore(),
+    secret: "PI-1819V"
+}))
+passport.serializeUser(serializeUser)
+passport.deserializeUser(deserializeUser)
 app.use(morgan('dev'))
+app.use(passport.initialize())
+app.use(passport.session())
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({
     extended: true
@@ -50,8 +60,14 @@ app.use(`/api/${version}/artists`, artistApi)
 app.use(notFound)
 
 function serializeUser(user, done) {
-    done()
+    done(null, user.id)
 }
+
+function deserializeUser(user, done) {
+    done(null, user.id)
+}
+
+function
 
 function notFound(req, resp) {
     const err = {

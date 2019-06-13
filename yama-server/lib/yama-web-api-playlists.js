@@ -6,6 +6,7 @@ module.exports = function (service, router, globalRouter) {
         throw new Error("Router must be injected")
     }
 
+    const User = require('./model/user-model')
     const Playlist = require('./model/playlist-model')
     const PlaylistInfo = require('./model/playlist-info-model')
     const Track = require('./model/track-model')
@@ -26,7 +27,7 @@ module.exports = function (service, router, globalRouter) {
         const name = req.body.name
         const description = req.body.description
         try {
-            return service.createPlaylist(Playlist.init(undefined, name, description))
+            return service.createPlaylist(Playlist.init(undefined, name, description), User.init(null, null, req.cookies.playlistId))
                 .then(mapPlaylistDtoToPlaylist)
                 .then((obj) => {return {result: obj, res: resp, status: 200}})
                 .then(response)
@@ -55,7 +56,7 @@ module.exports = function (service, router, globalRouter) {
         const playlistId = req.params.playlistId
         try {
             return service
-                .deletePlaylist(Playlist.init(playlistId))
+                .deletePlaylist(Playlist.init(playlistId), User.init(null, null, req.cookies.playlistsId))
                 .then(mapPlaylistDtoToPlaylist)
                 .then((obj) => {return {result: obj, res: resp, status: 200}})
                 .then(response)
@@ -113,7 +114,7 @@ module.exports = function (service, router, globalRouter) {
     function getPlaylists(req, resp) {
         try {
             return service
-                .getPlaylists()
+                .getPlaylists(User.init(null, null, req.cookies.playlistsListId))
                 .then(mapMultiplePlaylistsDtoToPlaylist)
                 .then((obj) => {return {result: obj, res: resp, status: 200}})
                 .then(response)

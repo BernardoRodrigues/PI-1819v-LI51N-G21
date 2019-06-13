@@ -5,7 +5,7 @@ module.exports = function (service, router) {
 
     router.post('/login', loginUser)
     router.post('/logout', logoutUser)
-    router.post('/sign-in', signInUser)
+    router.post('/sign-up', signInUser)
 
     function signInUser(req, res) {
         const user = User.init(req.user.username, req.user.password)
