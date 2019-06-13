@@ -37,6 +37,8 @@ const version = `v${pkg.version.toString()}`
 // }))
 // passport.deserializeUser()
 // app.use(passport.)
+
+app.use(express.json())
 app.use(session({
     resave: false, 
     saveUninitialized: true,

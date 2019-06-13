@@ -5,15 +5,14 @@
         <thead>
             <tr>
                 <th scope="col">Name</th>
-                <th scope="col">Description</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="playlists-table-body">
             {{#each playlists as |playlist|}}
             {{!-- add on click event to go to playlist --}}
             <tr>
+                <td hidden>{{playlist.id}}</td>
                 <td>{{playlist.name}}</td>
-                <td>{{playlist.description}}</td>
             </tr>
             {{/each}}
         </tbody>

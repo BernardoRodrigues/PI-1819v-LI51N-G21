@@ -15,15 +15,23 @@
                         {{this.username}}
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="#playlist-table">Playlists</a>
+                        <a class="dropdown-item" id="playlistsNav">Playlists</a>
                     </div>
                 </div>
+            </li>
+            <li class="nav-item">
+                <button class="btn btn-secondary" type="button" id="logoutBtn">
+                    Log out
+                </button>
             </li>
             {{/if}}
             {{#else }}
             <li class="nav-item">
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#signUpModal">Sign
                     Up</button>
+            </li>
+            <li class="nav-item">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#loginModal">Log in</button>
             </li>
             {{/else}}
         </ul>

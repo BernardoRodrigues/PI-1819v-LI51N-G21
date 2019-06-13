@@ -1,5 +1,6 @@
-module.exports = async function (template) {
+module.exports = async function (homeTemplate, playlistsTemplate) {
     return new Promise((resolve, reject) => {
+        const content = document.getElementById('main-content')
         document.getElementById('loginBtn')
             .onclick(() => {
                 const username = document.getElementById('logInUsername').innerText
@@ -36,6 +37,32 @@ module.exports = async function (template) {
                         reject(data)
                     })
             })
+
+        document.getElementById('logoutBtn')
+            .onclick(() => {
+                jQuery.post('api/v1.0.0/auth/logout')
+                    .done(() => {
+                        alert('successfully logged out')
+                        content.innerHTML = homeTemplate()
+                        resolve()
+                    })
+                    .fail(() => {
+                        alert('fail on log out')
+                    })
+            })
+
+        document.getElementById('playlistsNav')
+                .onclick(() => {
+                    fetch('api/v1.0.0/playlists/')
+                    .then((result) => {
+                        const data = await result.json()
+                        if (result.ok) {
+                            content.innerHTML = playlistsTemplate(data)
+                            resolve()
+                        }
+                        reject('error on request')
+                    })
+                })
 
 
     })
