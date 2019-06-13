@@ -69,8 +69,6 @@ function deserializeUser(user, done) {
     done(null, user.id)
 }
 
-function
-
 function notFound(req, resp) {
     const err = {
         message: "Method or Path do not exist",

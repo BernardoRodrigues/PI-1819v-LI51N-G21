@@ -1,6 +1,6 @@
 module.exports = async function(template) {
     return new Promise((resolve, reject) => {
-        const albumInfo = document.querySelector('album-info')
+        const content = document.getElementById('main-content')
         const tableBody = document.getElementById('albums-table-body')
         const rows = tableBody.getElementsByTagName('tr')
         for (let index = 0; index < rows.length; index++) {
@@ -15,7 +15,7 @@ module.exports = async function(template) {
                     if (rsp.ok) {
                         const data = await rsp.json()
                         data = getUserData(data)
-                        albumInfo.innerHTML = await template(data)
+                        content.innerHTML = await template(data)
                         return resolve()
                     }
                     else reject('error on request')
