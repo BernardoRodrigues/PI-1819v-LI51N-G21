@@ -2,7 +2,6 @@ module.exports = function (service, router) {
 
     const User = require('./model/user-model')
 
-
     router.post('/login', loginUser)
     router.post('/logout', logoutUser)
     router.post('/sign-up', signInUser)
@@ -12,7 +11,12 @@ module.exports = function (service, router) {
         try {
             return service
                 .signInUser(user)
-                .then(_ => req.login(user, (err) => handleError(err, res)))
+                .then(result => {
+                    req.login(user, (err) => handleError(err, res))
+                    res.cookie("username", result.username)
+                    res.cookie("playlistsId", result.playlistsListId)
+                })
+                .then()
                 .then(_ => response({
                     result: {
                         message: "sign in successful"
@@ -20,8 +24,8 @@ module.exports = function (service, router) {
                     resp: res,
                     status: 200
                 }))
-                .catch(err => handleError(err, res)) 
-        } catch(err) {
+                .catch(err => handleError(err, res))
+        } catch (err) {
             handleError(err, res)
         }
     }
@@ -69,6 +73,9 @@ module.exports = function (service, router) {
             req.login(user, (err) => handleError(err, res))
             message = "login successful"
             status = 200
+            req.login(user, (err) => handleError(err, res))
+            res.cookie("username", result.username)
+            res.cookie("playlistsId", result.playlistsListId)
         } else {
             message = "login failed"
             status = 400
