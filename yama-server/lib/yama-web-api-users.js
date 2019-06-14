@@ -44,7 +44,7 @@ module.exports = function (service, router) {
     }
 
     function loginUser(req, res) {
-        const user = User.init(req.user.username, req.user.password)
+        const user = User.init(req.body.username, req.body.password)
         try {
             return service
                 .validateLogin(user)
