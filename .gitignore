@@ -68,3 +68,6 @@ typings/
 # yama server sessions files
 /yama-server/sessions
 
+# dist
+/yama-app/dist
+

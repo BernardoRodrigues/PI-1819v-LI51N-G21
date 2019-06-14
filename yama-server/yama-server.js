@@ -54,7 +54,7 @@ app.use(bodyParser.urlencoded({
     extended: true
 })); // for parsing application/x-www-form-urlencoded
 
-app.use(express.static(path.join(__dirname,"..", "yama-app", "app")))
+app.use('/', express.static(path.join(__dirname,"..", "yama-app", "dist")))
 app.get('/api/version', (req, res) => res.status(200).send(pkg.version));
 app.use(`/api/${version}/auth`, usersApi)
 app.use(`/api/${version}/playlists`, playlistApi)

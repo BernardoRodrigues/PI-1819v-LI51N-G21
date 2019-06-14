@@ -11,7 +11,7 @@ module.exports = async function(template) {
         function onRowClick(row) {
             const mbid = row.getElementsByTagName('td')[0].innerText
             fetch(`api/v1.0.0/artists/album/${mbid}`)
-                .then(rsp => {
+                .then( async rsp => {
                     if (rsp.ok) {
                         const data = await rsp.json()
                         data = getUserData(data)
@@ -30,7 +30,6 @@ module.exports = async function(template) {
                 if (usernameCookie && playlistListIdCookie) {
                     const username = usernameCookie.split("=")[1]
                     const playlistListsId = playlistListIdCookie.split("=")[1]
-                    fetch()
                     data['username'] = username
                     data['playlistsListId'] = playlistListsId
                 }

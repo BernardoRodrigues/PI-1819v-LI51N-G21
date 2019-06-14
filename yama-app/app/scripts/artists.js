@@ -11,7 +11,7 @@ module.exports = async function(template) {
         function onRowClick(row) {
             const mbid = row.getElementsByTagName('td')[0].innerText
             fetch(`api/v1.0.0/artists/${mbid}/albums`)
-                .then(rsp => {
+                .then(async rsp => {
                     if (rsp.ok) {
                         const data = await rsp.json()
                         content.innerHTML = await template(data)

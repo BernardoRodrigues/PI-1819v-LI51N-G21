@@ -17,10 +17,10 @@ const compiledTemplates = {
     playlists: syncToAsync(Handlebars.compile(require('./templates/playlist-table.hbs').default)),
     tracks: syncToAsync(Handlebars.compile(require('./templates/tracks-table.hbs').default)),
     header: syncToAsync(Handlebars.compile(require('./templates/header.hbs').default)),
-    welcome: syncToAsync(Handlebars.compile(require('./templates/welcome.hbs').default)),
-    search: syncToAsync(Handlebars.compile(require('./templates/search.hbs').default)),
-    searchResults: syncToAsync(Handlebars.compile(require('./templates/searchResults.hbs').default)),
-    alert: syncToAsync(Handlebars.compile(require('./templates/alert.hbs').default)),
+    // welcome: syncToAsync(Handlebars.compile(require('./templates/welcome.hbs').default)),
+    // search: syncToAsync(Handlebars.compile(require('./templates/search.hbs').default)),
+    // searchResults: syncToAsync(Handlebars.compile(require('./templates/searchResults.hbs').default)),
+    // alert: syncToAsync(Handlebars.compile(require('./templates/alert.hbs').default)),
 }
 
 function syncToAsync(syncF) {

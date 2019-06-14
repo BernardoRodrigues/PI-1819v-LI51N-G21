@@ -7,7 +7,7 @@ module.exports = async function(template) {
             const playlistId = row.getElementsByTagName('td')[0].innerText
             row.onclick = function() {
                 fetch()
-                    .then((result) => {
+                    .then(async (result) => {
                         if (result.ok) {
                             const data = await result.json()
                             content.innerHTML = template(data)

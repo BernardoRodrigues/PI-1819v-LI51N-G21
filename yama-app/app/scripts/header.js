@@ -54,7 +54,7 @@ module.exports = async function (homeTemplate, playlistsTemplate, artistsTemplat
         document.getElementById('playlistsNav')
                 .onclick(() => {
                     fetch('api/v1.0.0/playlists/')
-                    .then((result) => {
+                    .then(async (result) => {
                         const data = await result.json()
                         if (result.ok) {
                             content.innerHTML = await playlistsTemplate(data)
@@ -70,7 +70,7 @@ module.exports = async function (homeTemplate, playlistsTemplate, artistsTemplat
                 .onclick(() => {
                     const name = document.getElementById('searchInput').innerText.replace(/g/ , '+')
                     fetch(`api/v1.0.0/artists/search/${name}`)
-                        .then((result) => {
+                        .then(async (result) => {
                             const data = await result.json()
                             if (result.ok) {
                                 content.innerHTML = await artistsTemplate(data)

@@ -1,8 +1,8 @@
-require('./node_modules/bootstrap/dist/css/bootstrap.min.css')
+require('../node_modules/bootstrap/dist/css/bootstrap.min.css')
 require('bootstrap')
 
-const headerTemplate = require('./app/header')
-const routes = require('./app/routes')
+// const headerTemplate = require('./templates/header.hbs')
+const routes = require('./routes')
 
 ;
 
@@ -15,6 +15,7 @@ const routes = require('./app/routes')
     showHeader();
 
     async function showHeader() {
+        console.log("header")
         const decodedCookies = decodeURIComponent(document.cookie).split(";")
         let username;
         let playlistsId;
@@ -25,10 +26,11 @@ const routes = require('./app/routes')
                 playlistsId = element.split("=")[1]
             }
         });
-        header.innerHTML = await headerTemplate.header.view.apply(null, {username: username, playlistsId: playlistsId})
+        header.innerHTML = await routes.header.view.apply(null, {username: username, playlistsId: playlistsId})
     }
 
     async function showView() {
+        console.log("show view")
         let [view, ...params] = window.location.hash.split('/')
         view = view.substring(1)
         let viewTemplate = routes[view]
@@ -38,9 +40,9 @@ const routes = require('./app/routes')
                 mainContent.innerHTML = await viewTemplate.view.apply(null, params)
                 await viewTemplate.script()
             } catch(err) {
-                
+                alert('error')
             }
-        }
+        } 
     }
 })()
 
