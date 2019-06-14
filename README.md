@@ -5,13 +5,14 @@ Projecto da Unidade Curricular Programação na Internet (PI)
 Os *endpoints* estão agrupados nas seguintes categorias:
 * Artists
 * Playlists
+* Auth
 
 ***
 
 ## Artists
 Estes *endpoints* são usados para obter informação sobre artista(s).
 
-### GET /api/artists/search/:name
+### GET /api/v1.0.0/artists/search/:name
 Pesquisa por artistas que contenham o nome *name*.
 
 ***Método HTTP:*** GET
@@ -28,7 +29,7 @@ Pesquisa por artistas que contenham o nome *name*.
 
 _Pedido:_
 
-`curl -X GET http://localhost:8080/api/artists/search/cher`
+`curl -X GET http://localhost:8080/api/v1.0.0/artists/search/cher`
 
 _Retorno:_
 
@@ -65,7 +66,7 @@ _Retorno:_
 ]
 ```
 
-### GET /api/artists/:mbid/albums
+### GET /api/v1.0.0/artists/:mbid/albums
 Pesquisa por álbuns do artista com o id *mbid*.
 
 ***Método HTTP:*** GET
@@ -82,7 +83,7 @@ Pesquisa por álbuns do artista com o id *mbid*.
 
 _Pedido:_
 
-`curl -X GET http://localhost:8080/api/artists/bfcc6d75-a6a5-4bc6-8282-47aec8531818/albums`
+`curl -X GET http://localhost:8080/api/v1.0.0/artists/bfcc6d75-a6a5-4bc6-8282-47aec8531818/albums`
 
 _Retorno:_
 ```json
@@ -134,7 +135,7 @@ _Retorno:_
 ]
 ```
 
-### GET /api/artists/albums/:mbid
+### GET /api/v1.0.0/artists/albums/:mbid
 Pesquisa pelas músicas que compõem o álbum com o id *mbid*.
 
 ***Método HTTP:*** GET
@@ -150,7 +151,7 @@ Pesquisa pelas músicas que compõem o álbum com o id *mbid*.
 
 _Pedido:_
 
-`curl -X GET http://localhost:8080/api/artists/albums/63b3a8ca-26f2-4e2b-b867-647a6ec2bebd`
+`curl -X GET http://localhost:8080/api/v1.0.0/artists/albums/63b3a8ca-26f2-4e2b-b867-647a6ec2bebd`
 
 _Retorno:_
 
@@ -210,7 +211,7 @@ _Retorno:_
 ## Playlists
 Estes *endpoints* são usados para criar, pesquisar e editar _playlists_ e as suas músicas.
 
-### POST /api/playlists
+### POST /api/v1.0.0/playlists
 Cria uma _playlist_.
 
 ***Método HTTP:*** POST
@@ -227,7 +228,7 @@ Cria uma _playlist_.
 
 _Pedido:_
 
-`curl -X POST http://localhost:8080/api/playlists`
+`curl -X POST http://localhost:8080/api/v1.0.0/playlists`
 
 _Body do Pedido:_
 
@@ -249,7 +250,7 @@ _Retorno:_
 }
 ```
 
-### PUT /api/playlists/:playlistId
+### PUT /api/v1.0.0/playlists/:playlistId
 Alterar o nome e/ou a descrição da _playlist_ com o id _playlistId_.
 
 ***Método HTTP:*** PUT
@@ -267,7 +268,7 @@ Alterar o nome e/ou a descrição da _playlist_ com o id _playlistId_.
 
 _Pedido:_
 
-`curl -X PUT http://localhost:8080/api/playlists/LdFCUWoBX2Y_7Bc7Ivsq`
+`curl -X PUT http://localhost:8080/api/v1.0.0/playlists/LdFCUWoBX2Y_7Bc7Ivsq`
 
 _Body do Pedido:_
 
@@ -289,7 +290,7 @@ _Retorno:_
 }
 ```
 
-### DELETE /api/playlists/:playlistId
+### DELETE /api/v1.0.0/playlists/:playlistId
 Eliminar a _playlist_ com o id _playlistId_.
 
 ***Método HTTP:*** DELETE
@@ -305,7 +306,7 @@ Eliminar a _playlist_ com o id _playlistId_.
 
 _Pedido:_
 
-`curl -X DELETE http://localhost:8080/playlists/LdFCUWoBX2Y_7Bc7Ivsq`
+`curl -X DELETE http://localhost:8080/api/v1.0.0/playlists/LdFCUWoBX2Y_7Bc7Ivsq`
 
 _Retorno:_
 
@@ -315,7 +316,7 @@ _Retorno:_
 }
 ```
 
-### GET /api/playlists
+### GET /api/v1.0.0/playlists
 Listar todas as _playlists_.
 
 ***Método HTTP:*** GET
@@ -330,7 +331,7 @@ Listar todas as _playlists_.
 
 _Pedido:_
 
-`curl -X GET http://localhost:8080/api/playlists`
+`curl -X GET http://localhost:8080/api/v1.0.0/playlists`
 
 _Retorno:_
 
@@ -345,7 +346,7 @@ _Retorno:_
 ]
 ```
 
-### GET /api/playlists/:playlistId
+### GET /api/v1.0.0/playlists/:playlistId
 Apresenta a informação detalhada da _playlist_ com o id _playlistId_.
 
 ***Método HTTP:*** GET
@@ -361,7 +362,7 @@ Apresenta a informação detalhada da _playlist_ com o id _playlistId_.
 
 _Pedido:_
 
-`curl -X GET http://localhost:8080/api/playlists/LdFCUWoBX2Y_7Bc7Ivsq`
+`curl -X GET http://localhost:8080/api/v1.0.0/playlists/LdFCUWoBX2Y_7Bc7Ivsq`
 
 _Retorno:_
 
@@ -375,7 +376,7 @@ _Retorno:_
 }
 ```
 
-### PUT /api/playlists/:playlistId/track
+### PUT /api/v1.0.0/playlists/:playlistId/track
 Adiciona uma ou várias músicas à _playlist_ com o id _playlistId_.
 
 ***Método HTTP:*** PUT
@@ -392,7 +393,7 @@ Adiciona uma ou várias músicas à _playlist_ com o id _playlistId_.
 
 _Pedido:_
 
-`curl -X PUT http://localhost:8080/api/playlists/LdFCUWoBX2Y_7Bc7Ivsq/track`
+`curl -X PUT http://localhost:8080/api/v1.0.0/playlists/LdFCUWoBX2Y_7Bc7Ivsq/track`
 
 _Body do Pedido:_
 
@@ -451,7 +452,7 @@ _Retorno:_
 ]
 ```
 
-### DELETE /api/playlists/:playlistId/track
+### DELETE /api/v1.0.0/playlists/:playlistId/track
 Remover uma ou várias músicas da _playlist_ com o id _playlistId_.
 
 ***Método HTTP:*** DELELE
@@ -468,7 +469,7 @@ Remover uma ou várias músicas da _playlist_ com o id _playlistId_.
 
 _Pedido:_
 
-`curl -X DELETE http://localhost:8080/api/playlists/LdFCUWoBX2Y_7Bc7Ivsq/track`
+`curl -X DELETE http://localhost:8080/api/v1.0.0/playlists/LdFCUWoBX2Y_7Bc7Ivsq/track`
 
 _Body do Pedido:_
 
@@ -502,4 +503,106 @@ _Retorno:_
         }
     }
 ]
+```
+
+## Auth
+Estes *endpoints* são usados para autenticação de utilizador.
+
+### POST /api/v1.0.0/auth/login
+Faz o _login_ do utilizador com o _username_ e _password_ inseridos no formulário
+
+***Método HTTP:*** POST
+
+***HTTP body:*** 
+* _"username"_ - nome do _user_
+* _"password"_ - _password_ do utilizador
+
+***Parâmetros:*** Nenhum
+
+***Query String:*** Nenhum
+
+***Retorna:*** Nenhum
+
+_Pedido:_
+
+`curl -X POST http://localhost:8080/api/v1.0.0/auth/login`
+
+_Body do Pedido:_
+
+```json
+{
+	"username": "d",
+	"password": "d"
+}
+```
+
+### POST /api/v1.0.0/auth/logout
+Desfaz a autenticação do utilizador.
+
+***Método HTTP:*** POST
+
+***HTTP body:*** 
+* _"username"_ - nome do _user_
+* _"password"_ - _password_ do utilizador
+
+***Parâmetros:*** Nenhum
+
+***Query String:*** Nenhum
+
+***Retorna:*** Mensagem de sucesso no _sign in_
+
+_Pedido:_
+
+`curl -X POST http://localhost:8080/api/v1.0.0/auth/logout`
+
+_Body do Pedido:_
+
+_Retorno:_
+
+```json
+{
+    "message": "logout successfully"
+}
+```
+
+### POST /api/v1.0.0/auth/sign-up
+Faz o registo de novo utilizador caso ainda não haja nenhum user com _username_ escolhido
+
+***Método HTTP:*** POST
+
+***HTTP body:*** 
+* _"username"_ - nome do _user_
+* _"password"_ - _password_ do utilizador
+
+***Parâmetros:*** Nenhum
+
+***Query String:*** Nenhum
+
+***Retorna:*** Mensagem de sucesso no _sign in_
+
+_Pedido:_
+
+`curl -X POST http://localhost:8080/api/v1.0.0/auth/sign-up`
+
+_Body do Pedido:_
+
+```json
+{
+	"username": "d",
+	"password": "d"
+}
+```
+
+_Retorno:_
+
+```json
+{
+    "message": "sign in successful"
+}
+```
+_Cookies_
+```json
+username: d,
+playlistsId: WZLjV2sBmfnwYGBRLFzr,
+userId: WpLjV2sBmfnwYGBRMlwa
 ```
