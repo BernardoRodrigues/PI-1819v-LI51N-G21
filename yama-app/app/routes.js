@@ -52,6 +52,6 @@ module.exports = {
     },
     header: {
         view: compiledTemplates.header,
-        script: () => scripts.header()
+        script: () => scripts.header(null, compiledTemplates.playlists, compiledTemplates.artists)
     }
 }

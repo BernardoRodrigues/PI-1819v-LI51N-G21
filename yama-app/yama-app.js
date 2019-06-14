@@ -9,8 +9,6 @@ const routes = require('./app/routes')
 (function() {
     const mainContent = document.querySelector('#main-content')
     const header = document.querySelector('#nav-content')
-    let username;
-    let playlistsId;
           //?
     window.addEventListener('hashchange', showView);
     showView();
@@ -18,6 +16,8 @@ const routes = require('./app/routes')
 
     async function showHeader() {
         const decodedCookies = decodeURIComponent(document.cookie).split(";")
+        let username;
+        let playlistsId;
         decodedCookies.forEach(element => {
             if (element.includes("username")) {
                 username = element.split("=")[1]

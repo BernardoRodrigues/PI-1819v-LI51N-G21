@@ -1,4 +1,4 @@
-module.exports = async function (homeTemplate, playlistsTemplate) {
+module.exports = async function (homeTemplate, playlistsTemplate, artistsTemplate) {
     return new Promise((resolve, reject) => {
         const content = document.getElementById('main-content')
         document.getElementById('loginBtn')
@@ -57,13 +57,29 @@ module.exports = async function (homeTemplate, playlistsTemplate) {
                     .then((result) => {
                         const data = await result.json()
                         if (result.ok) {
-                            content.innerHTML = playlistsTemplate(data)
+                            content.innerHTML = await playlistsTemplate(data)
                             resolve()
+                        } else {
+                            alert("Couldn't get playlists")
+                            reject('error on request')
                         }
-                        reject('error on request')
                     })
                 })
 
-
+        document.getElementById('searchBtn')
+                .onclick(() => {
+                    const name = document.getElementById('searchInput').innerText.replace(/g/ , '+')
+                    fetch(`api/v1.0.0/artists/search/${name}`)
+                        .then((result) => {
+                            const data = await result.json()
+                            if (result.ok) {
+                                content.innerHTML = await artistsTemplate(data)
+                                resolve()
+                            } else {
+                                alert("No results found")
+                                reject()
+                            }  
+                        })
+                })
     })
 }

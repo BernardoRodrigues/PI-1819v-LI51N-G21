@@ -18,14 +18,14 @@ const playlistApi = require('./lib/yama-web-api-playlists')(serviceDb, express.R
 const artistApi = require('./lib/yama-web-api-artist')(serviceArtist, express.Router())
 const pkg = require('./package.json')
 const nconf = require('nconf')
-/*
+
 nconf.argv()
 nconf.defaults({conf: path.join(__dirname, '/config.json')})
 
 
 const port = nconf.get('port')
-*/
-const port = 8080
+
+// const port = 8080
 
 if (!port) {
     throw new Error("Port number must be passed")
