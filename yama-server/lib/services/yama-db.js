@@ -260,7 +260,7 @@ module.exports = function (request) {
     async function addMusic(playlist) {
         if (!playlist || !playlist.id || playlist.id.length === 0)
             throw new InvalidParametersError('Playlist id is required', 400)
-        if (!playlist.tracks || playlist.tracks.length === 0 || )
+        if (!playlist.tracks || playlist.tracks.length === 0)
             throw new InvalidParametersError('Can not add empty music list is required', 400)
         const script = elasticSearchConfig.addMusicScript
         script.script.params.track = playlist.tracks[0]
