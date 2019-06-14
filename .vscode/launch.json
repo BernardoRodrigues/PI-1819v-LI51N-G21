@@ -9,7 +9,7 @@
             "request": "launch",
             "name": "Launch Program",
             "program": "${workspaceFolder}\\yama-server\\yama-server.js",
-            "args": ["8080"]
+            "args": ["--port", "8080"]
         }
     ]
 }

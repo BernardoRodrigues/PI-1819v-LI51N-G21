@@ -22,10 +22,7 @@ const nconf = require('nconf')
 nconf.argv()
 nconf.defaults({conf: path.join(__dirname, '/config.json')})
 
-
 const port = nconf.get('port')
-
-// const port = 8080
 
 if (!port) {
     throw new Error("Port number must be passed")
@@ -57,6 +54,7 @@ app.use(bodyParser.urlencoded({
     extended: true
 })); // for parsing application/x-www-form-urlencoded
 
+app.use(express.static(path.join(__dirname,"..", "yama-app", "app")))
 app.get('/api/version', (req, res) => res.status(200).send(pkg.version));
 app.use(`/api/${version}/auth`, usersApi)
 app.use(`/api/${version}/playlists`, playlistApi)
