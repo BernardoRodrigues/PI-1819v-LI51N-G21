@@ -1,106 +1,106 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Yama</a>
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+            <button class="btn btn-secondary" id="backBtn" onclick="javascript:history.back()">
+                Back
+            </button>
+        </li>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Yama</a>
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <button class="btn btn-secondary" id="backBtn" onclick="javascript:history.back()">
-                    Back
+        <li class="nav-item mx-auto">
+            <form class="form-inline">
+                <input id="searchInput" class="form-control mr-sm-2" type="text" placeholder="Search Artist"
+                    aria-label="Search">
+                <button id="searchBtn" class="btn btn-outline-primary" type="button">Search</button>
+            </form>
+
+        </li>
+
+        {{#if this.username}}
+        <li class="nav-item mr-1 pull-right">
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{this.username}}
                 </button>
-            </li>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" id="playlistsNav">Playlists</a>
+                </div>
+            </div>
+        </li>
+        <li class="nav-item mr-0 pull-right">
+            <button class="btn btn-secondary" type="button" id="logoutBtn">
+                Log out
+            </button>
+        </li>
+        {{else}}
+        <li class="nav-item mr-1 pull-right" style="float: right">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#signUpModal">Sign
+                Up</button>
+        </li>
+        <li class="nav-item mr-0 pull-right">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#loginModal">Log in</button>
+        </li>
+        {{/if}}
+    </ul>
 
-            <li class="nav-item">
-                <form class="form-inline" >
-                <input id="searchInput" class="form-control mr-sm-2" type="search" placeholder="Search Artist" aria-label="Search">
-                <button id="searchBtn" class="btn btn-outline-primary" type="submit">Search</button>
-                </form>
-
-            </li>
-
-            {{#if this.username}}
-            <li class="nav-item">
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        {{this.username}}
+    <div class="modal fade" id="signUpModal" tabindex="-1" role="dialog" aria-labelledby="signUpLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="signUpLabel">Sign Up</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
                     </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" id="playlistsNav">Playlists</a>
-                    </div>
                 </div>
-            </li>
-            <li class="nav-item">
-                <button class="btn btn-secondary" type="button" id="logoutBtn">
-                    Log out
-                </button>
-            </li>
-            {{else}}
-            <li class="nav-item">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#signUpModal">Sign
-                    Up</button>
-            </li>
-            <li class="nav-item">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#loginModal">Log in</button>
-            </li>
-            {{/if}}
-        </ul>
-
-        <div class="modal fade" id="signUpModal" tabindex="-1" role="dialog" aria-labelledby="signUpLabel"
-            aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="signUpLabel">Sign Up</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form>
-                            <div class="form-group">
-                                <label for="signUpUsername" class="col-form-label">Username</label>
-                                <input type="text" class="form-control" id="signUpUsername" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="signUpPassword" class="col-form-label">Password</label>
-                                <input type="password" class="form-control" id="signUpPassword" required />
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Close</button>
-                        <button id="signUpBtn" type="button" class="btn btn-outline-success">Sign Up</button>
-                    </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="signUpUsername" class="col-form-label">Username</label>
+                            <input type="text" class="form-control" id="signUpUsername" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="signUpPassword" class="col-form-label">Password</label>
+                            <input type="password" class="form-control" id="signUpPassword" required />
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Close</button>
+                    <button id="signUpBtn" type="button" class="btn btn-outline-success">Sign Up</button>
                 </div>
             </div>
         </div>
+    </div>
 
-        <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="loginModalLabel">Login</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form>
-                            <div class="form-group">
-                                <label for="logInUsername" class="col-form-label">Username</label>
-                                <input type="text" class="form-control" id="logInUsername" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="logInPassword" class="col-form-label">Password</label>
-                                <input type="password" class="form-control" id="logInPassword" required />
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Close</button>
-                        <button id="loginBtn" type="button" class="btn btn-outline-success">Login</button>
-                    </div>
+    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginModalLabel">Login</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="logInUsername" class="col-form-label">Username</label>
+                            <input type="text" class="form-control" id="logInUsername" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="logInPassword" class="col-form-label">Password</label>
+                            <input type="password" class="form-control" id="logInPassword" required />
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Close</button>
+                    <button id="loginBtn" type="button" class="btn btn-outline-success">Login</button>
                 </div>
             </div>
         </div>
-    </nav>
+    </div>
+</nav>

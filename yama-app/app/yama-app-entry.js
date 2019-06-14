@@ -9,6 +9,7 @@ const routes = require('./routes')
 (function() {
     const mainContent = document.getElementById('main-content')
     const header = document.getElementById('nav-content')
+    const content = document.querySelector('.main-content')
           //?
     window.addEventListener('hashchange', showView);
     showView();
@@ -27,6 +28,7 @@ const routes = require('./routes')
             }
         });
         header.innerHTML = await routes.header.view.apply(null, {username: username, playlistsId: playlistsId})
+        await routes.header.script(null, routes.playlists.view, routes.artists.view)
     }
 
     async function showView() {
@@ -37,7 +39,7 @@ const routes = require('./routes')
 
         if (viewTemplate) {
             try {
-                mainContent.innerHTML = await viewTemplate.view.apply(null, params)
+                content.innerHTML = await viewTemplate.view.apply(null, params)
                 await viewTemplate.script()
             } catch(err) {
                 alert('error')

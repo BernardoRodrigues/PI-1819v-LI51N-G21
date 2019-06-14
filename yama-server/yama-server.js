@@ -22,7 +22,7 @@ const nconf = require('nconf')
 nconf.argv()
 nconf.defaults({conf: path.join(__dirname, '/config.json')})
 
-const port = nconf.get('port')
+const port = 8080
 
 if (!port) {
     throw new Error("Port number must be passed")
@@ -62,11 +62,11 @@ app.use(`/api/${version}/artists`, artistApi)
 app.use(notFound)
 
 function serializeUser(user, done) {
-    done(null, user.id)
+    done(null, user)
 }
 
 function deserializeUser(user, done) {
-    done(null, user.id)
+    done(null, user)
 }
 
 function notFound(req, resp) {

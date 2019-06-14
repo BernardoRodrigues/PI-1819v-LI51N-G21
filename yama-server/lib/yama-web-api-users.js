@@ -12,9 +12,13 @@ module.exports = function (service, router) {
             return service
                 .signInUser(user)
                 .then(result => {
-                    req.login(user, (err) => handleError(err, res))
+                    req.login(result, (err) => {
+                        if (err) {
+                            return handleError(err, res)
+                        }
+                    })
                     res.cookie("username", result.username)
-                    res.cookie("playlistsId", result.playlistsListId)
+                    res.cookie("playlistsId", result.playlistId)
                     res.cookie("userId", result.id)
                 })
                 .then(_ => response({
@@ -70,7 +74,9 @@ module.exports = function (service, router) {
         let status;
         let message;
         if (result) {
-            req.login(user, (err) => handleError(err, res))
+            req.login(user, (err) => {
+                if(err) return handleError(err, res)
+            })
             message = "login successful"
             status = 200
             req.login(user, (err) => handleError(err, res))
@@ -92,10 +98,10 @@ module.exports = function (service, router) {
 
     function response({
         result,
-        res,
+        resp,
         status
     }) {
-        res
+        resp
             .status(status)
             .type('json')
             .end(JSON.stringify(result))
