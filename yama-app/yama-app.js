@@ -7,8 +7,8 @@ const routes = require('./app/routes')
 ;
 
 (function() {
-    const mainContent = document.querySelector('#main-content')
-    const header = document.querySelector('#nav-content')
+    const mainContent = document.getElementById('main-content')
+    const header = document.getElementById('nav-content')
           //?
     window.addEventListener('hashchange', showView);
     showView();
