@@ -7,7 +7,7 @@ module.exports = function (service, router) {
     router.post('/sign-up', signInUser)
 
     function signInUser(req, res) {
-        const user = User.init(req.user.username, req.user.password)
+        const user = User.init(req.body.username, req.body.password)
         try {
             return service
                 .signInUser(user)
@@ -15,8 +15,8 @@ module.exports = function (service, router) {
                     req.login(user, (err) => handleError(err, res))
                     res.cookie("username", result.username)
                     res.cookie("playlistsId", result.playlistsListId)
+                    res.cookie("userId", result.id)
                 })
-                .then()
                 .then(_ => response({
                     result: {
                         message: "sign in successful"

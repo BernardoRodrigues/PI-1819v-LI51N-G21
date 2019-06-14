@@ -24,15 +24,15 @@ module.exports = function() {
     }
 
     function searchUsersEndpoint() {
-        return `http://${accessUsersEndpoint()}/_search`
+        return `${accessUsersEndpoint()}/_search`
     }
 
-    function getUsersList(usersListId) {
+    function getUsersList() {
         return `http://${accessUsersEndpoint()}/${usersListId}`
     }
  
-    function updateUsersEndpoint(usersListId) {
-        return `${accessUsersEndpoint()}/${usersListId}/_update`
+    function updateUsersEndpoint(userId) {
+        return `${accessUsersEndpoint()}/${userId}/_update`
     }
 
     function createPlaylistsListEndpoint() {

@@ -1,13 +1,14 @@
 module.exports = class UserDtoModel {
 
-    constructor(username, password, playlistsListId) {
+    constructor(username, password, playlistsListId, userId) {
         this.username = username;
         this.password = password;
-        this.playlistsId = playlistsListId;
+        this.playlistId = playlistsListId;
+        this.id = userId
     }
 
-    static init(username, password, playlistsListId) {
-        return new UserDtoModel(username, password, playlistsListId)
+    static init(username, password, playlistsListId, userId) {
+        return new UserDtoModel(username, password, playlistsListId, userId)
     }
 
 }

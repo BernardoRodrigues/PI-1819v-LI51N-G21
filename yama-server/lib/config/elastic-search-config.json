@@ -25,7 +25,6 @@
             "lang":"painless",
             "inline": "ctx._source.playlists.add(params.playlist)",
             "params": {
-
             }
         }
     },

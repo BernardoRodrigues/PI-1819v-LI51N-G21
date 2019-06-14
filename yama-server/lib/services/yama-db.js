@@ -9,40 +9,13 @@ module.exports = function (request) {
     const Artist = require('./model/artist-dto-model')
     const User = require('./model/user-dto-model')
     const elasticSearchConfig = require('./../config/elastic-search-config.json')
-    let userListId = getUsersListId()
-
-    // request.post(
-    //     endpoints.accessUsersEndpoint(),
-    //     {
-    //         body: {users: []},
-    //         json: true
-    //     }
-    //     ).catch(err => {
-    //         if (err.status && err.status >= 500) {
-    //             throw new ServerDownError("Elastic Search hasn't been initiliazed", 500);
-    //         }
-    //     })
-
-
-    function getUsersListId() {
-        return request.get(
-                endpoints.searchUsersEndpoint()
-            )
-            .then(mapUsersListId)
-            .then(id => id)
-            .catch(handleError)
-    }
-
-    function mapUsersListId(result) {
-        return result.hits.hits._id
-    }
 
     async function validateUser(user) {
         if (!user || !user.username || user.username.length === 0 || !user.password || user.password.length === 0) {
             throw new InvalidParametersError('User cannot be empty', 400)
         }
         request.get(
-                endpoints.getUsersList(userListId), {
+                endpoints.searchUsersEndpoint(), {
                     json: true
                 }
             )
@@ -57,7 +30,7 @@ module.exports = function (request) {
             throw new InvalidParametersError('User cannot be empty', 400)
         }
         request.get(
-                endpoints.getUsersList(userListId), {
+                endpoints.getUsersList(), {
                     json: true
                 }
             )
@@ -85,18 +58,17 @@ module.exports = function (request) {
             )
             .then(res => res._id)
             .catch(handleError)
-        const script = elasticSearchConfig.addUserScript
-        script.script.params.user['username'] = user.username
-        script.script.params.user['password'] = user.password
-        script.script.params.user['playlistsId'] = playlistsId
+        user.playlistId = playlistsId
         return request.post(
-                endpoints.updateUsersEndpoint(userListId), {
-                    body: script,
+                endpoints.accessUsersEndpoint(), {
+                    body: user,
                     json: true
                 }
             )
-            .then(_ => user.playlistsId = playlistsId)
-            .then(_ => user)
+            .then(result => {
+                user.id = result._id
+                return user
+            })
             .catch(handleError)
     }
 
@@ -107,7 +79,7 @@ module.exports = function (request) {
 
 
     function mapUsersList(result) {
-        return result._source.users.map(u => User.init(u.username, u.password, u.playlistsListId))
+        return result.hits.hits.map(u => User.init(u._source.username, u._source.password, u._source.playlistId, u._id))
     }
 
     async function createPlaylist(playlist, user) {
@@ -201,7 +173,6 @@ module.exports = function (request) {
             .put(endpoints.updatePlaylistEndpoint(playlist.id), {
                 body: body,
                 json: true,
-
             })
             .then(() => playlist)
             .then(mapPlaylistUpdateResponse)
@@ -260,7 +231,7 @@ module.exports = function (request) {
     async function addMusic(playlist) {
         if (!playlist || !playlist.id || playlist.id.length === 0)
             throw new InvalidParametersError('Playlist id is required', 400)
-        if (!playlist.tracks || playlist.tracks.length === 0 || )
+        if (!playlist.tracks || playlist.tracks.length === 0)
             throw new InvalidParametersError('Can not add empty music list is required', 400)
         const script = elasticSearchConfig.addMusicScript
         script.script.params.track = playlist.tracks[0]
