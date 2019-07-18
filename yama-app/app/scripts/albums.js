@@ -3,6 +3,7 @@ module.exports = async function (template, albumInfoScript) {
         const content = document.getElementById('main-content')
         const tableBody = document.getElementById('albums-table-body')
         const rows = tableBody.getElementsByTagName('tr')
+        console.log(template)
         for (const row of rows) {
             row.onclick = () => {
                 const mbid = row.getElementsByTagName('td')[0].innerText
@@ -10,6 +11,7 @@ module.exports = async function (template, albumInfoScript) {
                     .then(async rsp => {
                         if (rsp.ok) {
                             const data = await rsp.json()
+                            console.log(data)
                             if (isUserLoggedIn()) {
                                 data['playlistListId'] = getUserCookieData('playlistListId')
                                 data['username'] = getUserCookieData('username')

@@ -2,7 +2,7 @@
     <table id="artists-table" class="table table-hover">
     <thead>
         <tr>
-           {{!-- <th scope="col">Image</th>  --}}
+           <th scope="col">Image</th> 
            <th scope="col">Name</th>
         </tr>
     </thead>
@@ -11,7 +11,7 @@
         {{!-- add onclick event for each row to go to artist albums --}}
             <tr>
                 <td hidden>{{artist.mbid}}</td>
-                {{!-- <td><img src=`${{{artist.images.[0].url}}}`></td> --}}
+                <td><img src='{{artist.images.[0].url}}'></td>
                 <td>{{artist.name}}</td>
             </tr>
         {{/each}}

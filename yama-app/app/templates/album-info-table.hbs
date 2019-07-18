@@ -1,24 +1,26 @@
 <div id="album-info">
     {{!-- <img src=images[0].url> --}}
-    <p>{{artistName}} - {{name}}</p>
+    <h4 class="text-dark ml-5 mt-5">{{artistName}} - {{name}}</h4>
 
-    <table class="table table-hover">
+    <table class="table table-hover mt-5 ml-5 mr-5">
         <thead>
             <tr>
                 <th scope="col">Artist</th>
                 <th scope="col">Name</th>
                 <th scope="col">Duration</th>
-                {{#if this.username}}
+                <th scope="col">Link</th>
+                {{#if username}}
                     <th scope="col"></th>
                 {{/if}}
             </tr>
         </thead>
         <tbody id="album-info-table-body">
-            {{#each this.tracks as |track|}}
+            {{#each tracks as |track|}}
             <tr>
-                <td>{{track.artist}}</td>
+                <td>{{track.artist.name}}</td>
                 <td>{{track.name}}</td>
                 <td>{{track.duration}}</td>
+                <td><a href="{{track.url}}">Go To Song</a></td>
                 {{#if ../username}}
                 <td>
                     <div class="dropright">
@@ -32,10 +34,12 @@
                             {{/each}}
                         </div>
                     </div>
-
                 </td>
                 {{/if}}
             </tr>
+            {{/each}}
         </tbody>
     </table>
 </div>
+
+
