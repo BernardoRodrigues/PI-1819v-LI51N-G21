@@ -40,11 +40,11 @@ const routes = require('./routes')
         let [view, ...params] = window.location.hash.split('/')
         view = view.substring(1)
         let viewTemplate = routes[view]
-
+        console.log(viewTemplate)
         if (viewTemplate) {
             try {
                 mainContent.innerHTML = await viewTemplate.view.apply(null, params)
-                await viewTemplate.script
+                await viewTemplate.script()
             } catch(err) {
                 console.log(viewTemplate)
                 console.log(err)

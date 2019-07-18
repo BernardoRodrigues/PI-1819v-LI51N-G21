@@ -20,6 +20,8 @@ module.exports = async function(albumsTemplate, albumsScript, artistTemplate, ar
                             reject()
                         }
                     })
+            } else {
+                console.log('FAILED')
             }
         }
     })

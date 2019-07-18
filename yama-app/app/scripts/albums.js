@@ -1,4 +1,4 @@
-module.exports = async function(template) {
+module.exports = async function(template, albumInfoScript) {
     return new Promise((resolve, reject) => {
         const content = document.getElementById('main-content')
         const tableBody = document.getElementById('albums-table-body')
@@ -11,11 +11,13 @@ module.exports = async function(template) {
         function onRowClick(row) {
             const mbid = row.getElementsByTagName('td')[0].innerText
             fetch(`api/v1.0.0/artists/album/${mbid}`)
-                .then( async rsp => {
+                .then(async rsp => {
+
                     if (rsp.ok) {
                         const data = await rsp.json()
                         data = getUserData(data)
                         content.innerHTML = await template(data)
+                        await albumInfoScript()
                         return resolve()
                     }
                     else reject('error on request')

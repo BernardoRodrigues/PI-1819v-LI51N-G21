@@ -6,15 +6,15 @@
         </tr>
     </thead>
     <tbody id="albums-table-body">
-        {{#each albums as |album|}}
+        {{#each this as |album|}}
 
         {{!-- add onclick to see songs --}}
         <tr>
             <td hidden>{{album.mbid}}</td>
-            <td><img src=album.images[0].url></td>
+            {{!-- <td><img src=`${{{album.images[0].url}}}`></td> --}}
             <td>{{album.name}}</td>
         </tr>
-        {{/each}}}}
+        {{/each}}
     </tbody>
 
 </table>

@@ -50,7 +50,7 @@ module.exports = {
     },
     albums: {
         view: compiledTemplates.albums,
-        script: () => scripts.artists(compiledTemplates.albumInfo)
+        script: () => scripts.artists(compiledTemplates.albumInfo, this.albumInfo.script)
     },
     albumInfo: {
         view: compiledTemplates.albumInfo,
@@ -58,7 +58,7 @@ module.exports = {
     },
     playlists: {
         view: compiledTemplates.playlists,
-        script: () => scripts.playlists(compiledTemplates.tracks)
+        script: () => scripts.playlists(compiledTemplates.tracks, this.tracks.script)
     },
     tracks: {
         view: compiledTemplates.tracks,
@@ -70,6 +70,6 @@ module.exports = {
     },
     welcome: {
         view: compiledTemplates.welcome,
-        script: () => scripts.welcome(compiledTemplates.albums, this.albums.script, compiledTemplates.artists, this.artists.script, scripts.alert, compiledTemplates.alert)
+        script: () => scripts.welcome(compiledTemplates.artists, this.artists.script, scripts.alert, compiledTemplates.alert)
     }
 }

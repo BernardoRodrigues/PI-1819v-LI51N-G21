@@ -4,8 +4,7 @@ module.exports = async function(albumsTemplate, albumsScript) {
         const tableBody = document.getElementById('artist-table-body')
         const rows = tableBody.getElementsByTagName('tr')
         for (let index = 0; index < rows.length; index++) {
-            console.log(rows);
-            const row = rows[i]
+            const row = rows[index]
             row.onclick = onRowClick(row)
         }
 

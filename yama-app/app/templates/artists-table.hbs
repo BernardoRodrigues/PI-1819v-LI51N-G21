@@ -5,12 +5,12 @@
            <th scope="col">Name</th>
         </tr>
     </thead>
-    <tbody>
-        {{#each this.artists as |artist|}}
+    <tbody id="artist-table-body">
+        {{#each this as |artist|}}
         {{!-- add onclick event for each row to go to artist albums --}}
             <tr>
                 <td hidden>{{artist.mbid}}</td>
-                <td><img src={{artist.images.[0].url}}></td>
+                {{!-- <td><img src=`${{{artist.images.[0].url}}}`></td> --}}
                 <td>{{artist.name}}</td>
             </tr>
         {{/each}}

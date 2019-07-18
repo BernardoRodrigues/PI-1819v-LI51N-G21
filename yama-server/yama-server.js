@@ -49,6 +49,7 @@ app.use(morgan('dev'))
 app.use('/favicon.ico', express.static(path.join(__dirname, '..', 'yama-app', 'app', 'images', 'favicon.png')))
 app.use('/', express.static(path.join(__dirname,"..", "yama-app", "dist")))
 app.get('/api/version', (req, res) => res.status(200).send(pkg.version));
+console.log({version: version});
 app.use(`/api/${version}/artists`, artistApi)
 app.use(`/api/${version}/auth`, usersApi.router)
 app.use(notFound)
