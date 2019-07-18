@@ -79,7 +79,9 @@ module.exports = function (request) {
 
 
     function mapUsersList(result) {
-        return result.hits.hits.map(u => User.init(u._source.username, u._source.password, u._source.playlistId, u._id))
+        console.log(result)
+        return result.hits.hits.map(u => 
+            User.init(u._source.username, u._source.password, u._source.playlistId, u._id))
     }
 
     async function createPlaylist(playlist, user) {
@@ -276,7 +278,7 @@ module.exports = function (request) {
         if (err.status && err.status === 400) {
             throw new InvalidParametersError("Invalid parameters", 400)
         }
-        if (err.status && err.status >= 500) {
+        if (!err || (err.status && err.status >= 500)) {
             throw new ServerDownError("Elastic Search hasn't been initiliazed", 500);
         }
     }

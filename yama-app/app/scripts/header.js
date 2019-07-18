@@ -1,97 +1,66 @@
-module.exports = async function (homeTemplate, playlistsTemplate, artistsTemplate) {
+module.exports = async function (homeTemplate, playlistsTemplate, alertScript, alertTemplate) {
     return new Promise((resolve, reject) => {
-        const content = document.getElementById('main-content')
+        const content = document.querySelector('#main-content')
 
-        document.getElementById('searchBtn').onclick = () => {
-            const name = document.getElementById('searchInput').value.replace(/g/ , '+')
-            console.log(name)
-            fetch(`api/v1.0.0/artists/search/${name}`)
-                .then(async (result) => {
-                    const data = await result.json()
-                    console.log(data)
+        const signUpBtn = document.getElementById('signUpBtn')
 
-                    if (result.ok) {
-                        content.innerHTML = await artistsTemplate({artists: data})
-                        window.location.hash = '#artists'
-                        resolve()
-                    } else if (result.status >= 500){
-                        alert("No results found")
-                        reject()
-                    }  
-                })
+        if (signUpBtn) {
+            signUpBtn.onclick = () => {
+                window.location.hash = '#signUp'
+            }
         }
 
-        document.getElementById('loginBtn')
-            .onclick = () => {
-                const username = document.getElementById('logInUsername').value
-                const password = document.getElementById('logInPassword').value
-
-                jQuery.post('api/v1.0.0/auth/login', {
-                        username: username,
-                        password: password
-                    })
-                    .done((data) => {
-                        alert('successfully logged in')
-                        window.location.reload()
-                        resolve(data)
-                    })
-                    .fail((data) => {
-                        alert('Invalid Credentials')
-                        reject(data)
-                    })
+        const loginBtn = document.getElementById('loginBtn')
+        if (loginBtn) {
+            loginBtn.onclick = () => {
+                window.location.hash = '#login'
             }
-        document.getElementById('signUpBtn')
-            .onclick = () => {
-                const username = document.getElementById('signUpUsername').value
-                const password = document.getElementById('signUpPassword').value
+        }
 
-                jQuery.post('api/v1.0.0/auth/sign-up', {
-                        username: username,
-                        password: password
-                    })
-                    .done((data) => {
-                        alert('successfully signed up')
-                        window.location.reload()
-                        resolve(data)
-                    })
-                    .fail((data) => {
-                        if (data.status >= 500) {
-                            alert("Server error")
-                        } else {
-                            alert('Invalid Credentials')
-                        }
-                        reject(data)
-                    })
-            }
+        const logoutBtn = document.getElementById('logoutBtn')
+        if (logoutBtn) {
+            logoutBtn
+                .onclick = () => {
+                    jQuery.post('api/v1.0.0/auth/logout')
+                        .done(() => {
+                            alertScript(alertTemplate, {
+                                message: 'We hope to see you soon',
+                                type: 'success'
+                            })
+                            window.location.hash = '#welcome'
+                            resolve()
+                        })
+                        .fail(() => {
+                            alertScript(alertTemplate, {
+                                message: 'Log out failed. We\'re very sorry',
+                                type: 'warning'
+                            })
+                        })
+                }
+        }
 
-        document.getElementById('logoutBtn').onclick = () => {
-                jQuery.post('api/v1.0.0/auth/logout')
-                    .done(() => {
-                        alert('successfully logged out')
-                        content.innerHTML = homeTemplate()
-                        resolve()
-                    })
-                    .fail(() => {
-                        alert('fail on log out')
-                    })
-            }
 
-        document.getElementById('playlistsNav')
+        const playlistsNav = document.querySelector('#playlistsNav')
+        if (playlistsNav) {
+            playlistsNav
                 .onclick = () => {
                     fetch('api/v1.0.0/playlists/')
-                    .then(async (result) => {
-                        console.log(result)
-                        const data = await result.json()
-                        if (result.ok) {
-                            content.innerHTML = await playlistsTemplate(data)
-                            resolve()
-                        } else {
-                            alert("Couldn't get playlists")
-                            reject('error on request')
-                        }
-                    })
+                        .then(async (result) => {
+                            console.log(result)
+                            const data = await result.json()
+                            if (result.ok) {
+                                content.innerHTML = await playlistsTemplate(data)
+                                resolve()
+                            } else {
+                                alertScript(alertTemplate, {
+                                    message: 'We couldn\'t go to your playlists',
+                                    type: 'warning'
+                                })
+                                reject()
+                            }
+                        })
                 }
+        }
 
-        
     })
 }

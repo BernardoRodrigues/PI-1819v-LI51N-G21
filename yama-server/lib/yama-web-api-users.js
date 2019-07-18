@@ -34,6 +34,17 @@ module.exports = function (service, router) {
         }
     }
 
+    function checkIfUserIsAuthenticated(req, res, next) {
+        if (req.isAuthenticated()) next()
+        else response({
+            result: {
+                message: "Not authorized"
+            },
+            resp: res,
+            status: 401
+        })
+    }
+
     function logoutUser(req, res) {
         if (req.isAuthenticated()) {
             req.logout()
@@ -101,6 +112,7 @@ module.exports = function (service, router) {
         resp,
         status
     }) {
+        
         resp
             .status(status)
             .type('json')
@@ -108,6 +120,9 @@ module.exports = function (service, router) {
     }
 
 
-    return router
+    return {
+        router: router,
+        checkIfUserIsAuthenticated: checkIfUserIsAuthenticated
+    }
 
 }

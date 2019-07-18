@@ -4,6 +4,7 @@
   "description": "Project for PI class",
   "main": "yama-server.js",
   "scripts": {
+    "server": "node yama-server.js --port 8080",
     "test": "mocha --recursive"
   },
   "repository": {
@@ -27,6 +28,7 @@
     "express-session": "^1.16.1",
     "nconf": "^0.10.0",
     "node-fetch": "^2.6.0",
+    "npm": "^6.9.0",
     "passport": "^0.4.0",
     "request": "^2.88.0",
     "request-promise": "^4.2.4",

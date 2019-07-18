@@ -1,0 +1,47 @@
+{{!-- <div class="modal" id="loginModal" tabindex="-1" data-show="true" role="dialog" aria-labelledby="loginModalLabel"
+    >
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="loginModalLabel">Login</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form >
+                    <div class="form-group">
+                        <label for="logInUsername" class="col-form-label">Username</label>
+                        <input type="text" class="form-control" id="logInUsername" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="logInPassword" class="col-form-label">Password</label>
+                        <input type="password" class="form-control" id="logInPassword" required />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Close</button>
+                <button id="sendLoginBtn" type="button" class="btn btn-outline-success">Login</button>
+            </div>
+        </div>
+    </div>
+</div> --}}
+<dialog class="card mt-2">
+    <h5 class="card-header white-text text-center py-4">
+        <strong>Log in</strong>
+    </h5>
+    <div class="card-body px-lg-5 pt-0">
+        <form class="form">
+            <div class="form-group">
+                <label for="logInUsername" class="col-form-label">Username</label>
+                <input type="text" class="form-control" id="logInUsername" required>
+            </div>
+            <div class="form-group">
+                <label for="logInPassword" class="col-form-label">Password</label>
+                <input type="password" class="form-control" id="logInPassword" required />
+            </div>
+        </form>
+        <button id="sendLoginBtn" type="button" class="btn btn-outline-success">Login</button>
+    </div>
+</dialog>

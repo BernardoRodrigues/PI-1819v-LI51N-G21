@@ -1,10 +1,10 @@
-module.exports = async function(template) {
+module.exports = async function(albumsTemplate, albumsScript) {
     return new Promise((resolve, reject) => {
         const content = document.getElementById('main-content')
         const tableBody = document.getElementById('artist-table-body')
-        const artistTable = document.querySelector('#artists-table')
         const rows = tableBody.getElementsByTagName('tr')
         for (let index = 0; index < rows.length; index++) {
+            console.log(rows);
             const row = rows[i]
             row.onclick = onRowClick(row)
         }
@@ -15,8 +15,9 @@ module.exports = async function(template) {
                 .then(async rsp => {
                     if (rsp.ok) {
                         const data = await rsp.json()
-                        content.innerHTML = await template(data)
-                        return resolve
+                        content.innerHTML = await albumsTemplate(data)
+                        await albumsScript()
+                        resolve()
                     }
                     else reject('error on request')
                 })

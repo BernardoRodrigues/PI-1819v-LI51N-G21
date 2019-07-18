@@ -22,7 +22,7 @@ const nconf = require('nconf')
 nconf.argv()
 nconf.defaults({conf: path.join(__dirname, '/config.json')})
 
-const port = 8080
+const port = nconf.any('port')
 
 if (!port) {
     throw new Error("Port number must be passed")
@@ -30,14 +30,11 @@ if (!port) {
 
 const version = `v${pkg.version.toString()}`
 
-// passport.serializeUser((user, done) => done(null, {
-//     username: user.username,
-
-// }))
-// passport.deserializeUser()
-// app.use(passport.)
-
 app.use(express.json())
+app.use(bodyParser.json()); // for parsing application/json
+app.use(bodyParser.urlencoded({
+    extended: true
+})); // for parsing application/x-www-form-urlencoded
 app.use(session({
     resave: false, 
     saveUninitialized: true,
@@ -46,20 +43,20 @@ app.use(session({
 }))
 passport.serializeUser(serializeUser)
 passport.deserializeUser(deserializeUser)
-app.use(morgan('dev'))
 app.use(passport.initialize())
 app.use(passport.session())
-app.use(bodyParser.json()); // for parsing application/json
-app.use(bodyParser.urlencoded({
-    extended: true
-})); // for parsing application/x-www-form-urlencoded
-
+app.use(morgan('dev'))
+app.use('/favicon.ico', express.static(path.join(__dirname, '..', 'yama-app', 'app', 'images', 'favicon.png')))
 app.use('/', express.static(path.join(__dirname,"..", "yama-app", "dist")))
 app.get('/api/version', (req, res) => res.status(200).send(pkg.version));
-app.use(`/api/${version}/auth`, usersApi)
-app.use(`/api/${version}/playlists`, playlistApi)
 app.use(`/api/${version}/artists`, artistApi)
+app.use(`/api/${version}/auth`, usersApi.router)
 app.use(notFound)
+
+
+ 
+app.use(usersApi.checkIfUserIsAuthenticated)
+app.use(`/api/${version}/playlists`, playlistApi)
 
 function serializeUser(user, done) {
     done(null, user)

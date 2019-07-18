@@ -12,12 +12,16 @@ const routes = require('./routes')
     const content = document.querySelector('.main-content')
           //?
     window.addEventListener('hashchange', showView);
+    window.addEventListener('hashchange', showHeader);
+    console.log('entered yama-app-entry')
     showView();
     showHeader();
 
     async function showHeader() {
         console.log("header")
-        const decodedCookies = decodeURIComponent(document.cookie).split(";")
+        console.log(document.cookie)
+
+        const decodedCookies = document.cookie.split(";")
         let username;
         let playlistsId;
         decodedCookies.forEach(element => {
@@ -28,7 +32,7 @@ const routes = require('./routes')
             }
         });
         header.innerHTML = await routes.header.view.apply(null, {username: username, playlistsId: playlistsId})
-        await routes.header.script(null, routes.playlists.view, routes.artists.view)
+        await routes.header.script()
     }
 
     async function showView() {
@@ -39,12 +43,17 @@ const routes = require('./routes')
 
         if (viewTemplate) {
             try {
-                content.innerHTML = await viewTemplate.view.apply(null, params)
-                await viewTemplate.script()
+                mainContent.innerHTML = await viewTemplate.view.apply(null, params)
+                await viewTemplate.script
             } catch(err) {
-                alert('error')
+                console.log(viewTemplate)
+                console.log(err)
+                window.location.hash = '#welcome'
             }
-        } 
+        } else {
+            console.log(`View Template undefined. View value: ${view}`)
+            window.location.hash = '#welcome'
+        }
     }
 })()
 

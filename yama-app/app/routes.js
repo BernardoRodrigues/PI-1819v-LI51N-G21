@@ -7,7 +7,11 @@ const scripts = {
     albumInfo: require('./scripts/album-info'),
     playlists: require('./scripts/playlists'),
     tracks: require('./scripts/tracks'),
-    header: require('./scripts/header')
+    header: require('./scripts/header'),
+    welcome: require('./scripts/welcome'),
+    alert: require('./scripts/alert'),
+    signUp: require('./scripts/sign-up'),
+    login: require('./scripts/login')
 }
 
 const compiledTemplates = {
@@ -17,10 +21,12 @@ const compiledTemplates = {
     playlists: syncToAsync(Handlebars.compile(require('./templates/playlist-table.hbs').default)),
     tracks: syncToAsync(Handlebars.compile(require('./templates/tracks-table.hbs').default)),
     header: syncToAsync(Handlebars.compile(require('./templates/header.hbs').default)),
-    // welcome: syncToAsync(Handlebars.compile(require('./templates/welcome.hbs').default)),
+    welcome: syncToAsync(Handlebars.compile(require('./templates/welcome.hbs').default)),
     // search: syncToAsync(Handlebars.compile(require('./templates/search.hbs').default)),
     // searchResults: syncToAsync(Handlebars.compile(require('./templates/searchResults.hbs').default)),
-    // alert: syncToAsync(Handlebars.compile(require('./templates/alert.hbs').default)),
+    alert: syncToAsync(Handlebars.compile(require('./templates/alert.hbs').default)),
+    signUp: syncToAsync(Handlebars.compile(require('./templates/sign-up.hbs').default)),
+    login: syncToAsync(Handlebars.compile(require('./templates/login.hbs').default))
 }
 
 function syncToAsync(syncF) {
@@ -30,9 +36,17 @@ function syncToAsync(syncF) {
 }
 
 module.exports = {
+    signUp: {
+        view: compiledTemplates.signUp,
+        script: () => scripts.signUp(compiledTemplates.alert, scripts.alert)
+    },
+    login: {
+        view: compiledTemplates.login,
+        script: () => scripts.login(compiledTemplates.alert, scripts.alert)
+    },
     artists: {
         view: compiledTemplates.artists,
-        script: () => scripts.artists(compiledTemplates.albums)
+        script: () => scripts.artists(compiledTemplates.albums, this.albums.script)
     },
     albums: {
         view: compiledTemplates.albums,
@@ -53,5 +67,9 @@ module.exports = {
     header: {
         view: compiledTemplates.header,
         script: () => scripts.header(null, compiledTemplates.playlists, compiledTemplates.artists)
+    },
+    welcome: {
+        view: compiledTemplates.welcome,
+        script: () => scripts.welcome(compiledTemplates.albums, this.albums.script, compiledTemplates.artists, this.artists.script, scripts.alert, compiledTemplates.alert)
     }
 }
