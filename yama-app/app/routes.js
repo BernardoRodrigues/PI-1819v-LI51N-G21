@@ -49,7 +49,7 @@ const albumInfo = {
 }
 const albums = {
     view: compiledTemplates.albums,
-    script: () => scripts.artists(compiledTemplates.albumInfo, albumInfo.script)
+    script: () => scripts.albums(compiledTemplates.albumInfo, albumInfo.script)
 }
 
 const artists = {

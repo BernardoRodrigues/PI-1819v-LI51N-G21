@@ -45,7 +45,7 @@ module.exports = async function (template, albumInfoScript) {
         function isUserLoggedIn() {
             return document.cookie.includes('username')
         }
-    
+
         function getUserData(data) {
             if (document.cookie.includes("username")) {
                 const split = document.cookie.split("&")

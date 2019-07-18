@@ -1,5 +1,5 @@
 <div id="album-info">
-    <img src=images[0].url>
+    {{!-- <img src=images[0].url> --}}
     <p>{{artistName}} - {{name}}</p>
 
     <table class="table table-hover">
@@ -8,8 +8,8 @@
                 <th scope="col">Artist</th>
                 <th scope="col">Name</th>
                 <th scope="col">Duration</th>
-                {{#if isUserLoggedIn}}
-                <th scope="col"></th>
+                {{#if this.username}}
+                    <th scope="col"></th>
                 {{/if}}
             </tr>
         </thead>
@@ -19,7 +19,7 @@
                 <td>{{track.artist}}</td>
                 <td>{{track.name}}</td>
                 <td>{{track.duration}}</td>
-                {{#if username}}
+                {{#if ../username}}
                 <td>
                     <div class="dropright">
                         <button type="button" id="addTrackToPlaylistBtn" class="btn btn-outline-primary"

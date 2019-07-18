@@ -10,7 +10,10 @@ module.exports = async function (albumsTemplate, albumsScript) {
         const tableBody = document.getElementById('artist-table-body')
         const rows = tableBody.getElementsByTagName('tr')
         for (const row of rows) {
-            row.onclick = () => {
+            row.onclick = function(ev) {
+                console.log(`onclick event on row: ${row}`)
+                console.log({row: row})
+                console.log({event: ev})
                 const mbid = row.getElementsByTagName('td')[0].innerText
                 fetch(`api/v1.0.0/artists/${mbid}/albums`)
                     .then(async rsp => {
