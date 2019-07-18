@@ -35,41 +35,55 @@ function syncToAsync(syncF) {
     }
 }
 
+const signUp = {
+    view: compiledTemplates.signUp,
+    script: () => scripts.signUp(compiledTemplates.alert, scripts.alert)
+}
+const login = {
+    view: compiledTemplates.login,
+    script: () => scripts.login(compiledTemplates.alert, scripts.alert)
+}
+const albumInfo = {
+    view: compiledTemplates.albumInfo,
+    script: () => scripts.albumInfo()
+}
+const albums = {
+    view: compiledTemplates.albums,
+    script: () => scripts.artists(compiledTemplates.albumInfo, albumInfo.script)
+}
+
+const artists = {
+    view: compiledTemplates.artists,
+    script: () => scripts.artists(compiledTemplates.albums, albums.script)
+}
+
+const tracks = {
+    view: compiledTemplates.tracks,
+    script: () => scripts.tracks()
+}
+
+const playlists = {
+    view: compiledTemplates.playlists,
+    script: () => scripts.playlists(compiledTemplates.tracks, tracks.script)
+}
+
+const header = {
+    view: compiledTemplates.header,
+    script: () => scripts.header(null, compiledTemplates.playlists, playlists.script)
+}
+const welcome = {
+    view: compiledTemplates.welcome,
+    script: () => scripts.welcome(compiledTemplates.artists, artists.script, scripts.alert, compiledTemplates.alert)
+}
+
 module.exports = {
-    signUp: {
-        view: compiledTemplates.signUp,
-        script: () => scripts.signUp(compiledTemplates.alert, scripts.alert)
-    },
-    login: {
-        view: compiledTemplates.login,
-        script: () => scripts.login(compiledTemplates.alert, scripts.alert)
-    },
-    artists: {
-        view: compiledTemplates.artists,
-        script: () => scripts.artists(compiledTemplates.albums, this.albums.script)
-    },
-    albums: {
-        view: compiledTemplates.albums,
-        script: () => scripts.artists(compiledTemplates.albumInfo, this.albumInfo.script)
-    },
-    albumInfo: {
-        view: compiledTemplates.albumInfo,
-        script: () => scripts.albumInfo()
-    },
-    playlists: {
-        view: compiledTemplates.playlists,
-        script: () => scripts.playlists(compiledTemplates.tracks, this.tracks.script)
-    },
-    tracks: {
-        view: compiledTemplates.tracks,
-        script: () => scripts.tracks()
-    },
-    header: {
-        view: compiledTemplates.header,
-        script: () => scripts.header(null, compiledTemplates.playlists, compiledTemplates.artists)
-    },
-    welcome: {
-        view: compiledTemplates.welcome,
-        script: () => scripts.welcome(compiledTemplates.artists, this.artists.script, scripts.alert, compiledTemplates.alert)
-    }
+    welcome: welcome,
+    header: header,
+    artists: artists,
+    playlists: playlists,
+    tracks: tracks,
+    albums: albums,
+    albumInfo: albumInfo,
+    login: login,
+    signUp: signUp
 }

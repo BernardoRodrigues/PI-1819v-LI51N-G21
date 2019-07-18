@@ -14,7 +14,7 @@
             </tr>
         </thead>
         <tbody id="album-info-table-body">
-            {{#each album.tracks as |track|}}
+            {{#each this.tracks as |track|}}
             <tr>
                 <td>{{track.artist}}</td>
                 <td>{{track.name}}</td>
@@ -27,7 +27,7 @@
                             Add to Playlist
                         </button>
                         <div class="dropdown-menu" aria-labelledby="addTrackToPlaylistBtn">
-                            {{#each playlists as |playlist|}}
+                            {{#each ../playlists as |playlist|}}
                                 <a class="dropdown-item" onclick="addToPlaylist({{playlist.id}}, {{track.url}})">{{playlist.name}}</a>
                             {{/each}}
                         </div>

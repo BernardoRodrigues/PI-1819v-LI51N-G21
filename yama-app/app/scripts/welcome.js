@@ -1,4 +1,4 @@
-module.exports = async function(albumsTemplate, albumsScript, artistTemplate, artistScript, alertScript, alertTemplate) {
+module.exports = async function(artistTemplate, artistScript, alertScript, alertTemplate) {
     return new Promise((resolve, reject) => {
         console.log('welcome script')
         document.getElementById('searchBtn').onclick = function() {
@@ -13,7 +13,7 @@ module.exports = async function(albumsTemplate, albumsScript, artistTemplate, ar
                         if (result.ok) {
                             console.log(data)
                             document.getElementById('artist-search-results').innerHTML = await artistTemplate(data)
-                            await artistScript(albumsTemplate, albumsScript)
+                            await artistScript()
                             resolve()
                         } else {
                             await alertScript(alertTemplate, {message: data.message, type: 'danger'})
