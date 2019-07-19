@@ -1,20 +1,22 @@
 <div class="container" id="albums-table">
+    <h2>Artists</h2>
+    <br>
     <table id="artists-table" class="table table-hover">
-    <thead>
-        <tr>
-           <th scope="col">Image</th> 
-           <th scope="col">Name</th>
-        </tr>
-    </thead>
-    <tbody id="artist-table-body">
-        {{#each this as |artist|}}
-        {{!-- add onclick event for each row to go to artist albums --}}
+        <thead>
             <tr>
-                <td hidden>{{artist.mbid}}</td>
-                <td><img src='{{artist.images.[0].url}}'></td>
-                <td>{{artist.name}}</td>
+                <th scope="col">Image</th> 
+                <th scope="col">Name</th>
             </tr>
-        {{/each}}
-    </tbody>
-</table>
+        </thead>
+        <tbody id="artist-table-body">
+            {{#each this as |artist|}}
+            {{!-- add onclick event for each row to go to artist albums --}}
+                <tr>
+                    <td hidden>{{artist.mbid}}</td>
+                    <td><img src='{{artist.images.[1].url}}'></td>
+                    <td>{{artist.name}}</td>
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>
 </div>

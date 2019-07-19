@@ -32,6 +32,7 @@ module.exports = async function (template, albumInfoScript) {
         }
 
         async function fillContent(content, data) {
+            content.innerHTML = ''
             content.innerHTML = await template(data)
             await albumInfoScript()
             return resolve()
