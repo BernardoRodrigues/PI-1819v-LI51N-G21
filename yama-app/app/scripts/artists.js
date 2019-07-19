@@ -19,6 +19,7 @@ module.exports = async function (albumsTemplate, albumsScript) {
                     .then(async rsp => {
                         if (rsp.ok) {
                             const data = await rsp.json()
+                            content.innerHTML = ''
                             content.innerHTML = await albumsTemplate(data)
                             await albumsScript()
                             return resolve()

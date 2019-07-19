@@ -10,10 +10,10 @@ module.exports = {
   entry: {
     index: './app/yama-app-entry.js'
   },
-  output: {
+ /* output: {
     filename: 'bundle.js',
     path: distDir,
-  },
+  },*/
   mode: 'development',
   devtool: 'source-map',
 

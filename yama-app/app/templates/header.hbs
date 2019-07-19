@@ -1,43 +1,54 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Yama</a>
-    <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-            <button class="btn btn-secondary" id="backBtn" onclick="javascript:history.back()">
-                Back
-            </button>
-        </li>
-    </ul>
-    {{#if this.username}}
-    <li class="nav-item mr-1 float-right">
-        <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                {{this.username}}
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" id="playlistsNav">Playlists</a>
+<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Yama</a>    
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navabarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item mr-1">
+                <a class="nav-link" href="#playlists" id="nav#playlists"  >
+                    Playlists
+                </a>        
+            </li>
+            
+            <li class="nav-item">
+                <button class="btn btn-secondary" id="backBtn" onclick="javascript:history.back()">
+                    Back
+                </button>
+            </li>
+
+        </ul>
+        {{#if this.username}}
+            <li class="nav-item mr-1 float-right">
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{this.username}}
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" id="playlistsNav">Playlists</a>
+                    </div>
+                </div>
+            </li>
+            <li class="nav-item mr-0 pull-right">
+                <button class="btn btn-secondary" type="button" id="logoutBtn">
+                    Log out
+                </button>
+            </li>
+        {{else}}
+            <div class="nav-item my-2 my-sm-0">
+                <button id="loginBtn" type="button" class="btn btn-primary my-2 my-sm-0">
+                    Login
+                </button>
             </div>
-        </div>
-    </li>
-    <li class="nav-item mr-0 pull-right">
-        <button class="btn btn-secondary" type="button" id="logoutBtn">
-            Log out
-        </button>
-    </li>
 
-    {{else}}
-    <div class="nav-item my-2 my-lg-0">
-        <button id="loginBtn" type="button" class="btn btn-primary my-2 my-sm-0">Log
-            in</button>
-    </div>
+            <div class="nav-item my-2 my-sm-0 float-right" style="float: right">
+                <button id="signUpBtn" type="button" class="btn btn-primary">Sign
+                    Up</button>
+            </div>
 
-    <div class="nav-item mr-1 float-right" style="float: right">
-        <button id="signUpBtn" type="button" class="btn btn-primary">Sign
-            Up</button>
-    </div>
+        {{/if}}
 
-    {{/if}}
-
-
-
+    </div>  
 </nav>

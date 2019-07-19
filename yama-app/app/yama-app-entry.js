@@ -11,10 +11,12 @@ const routes = require('./routes')
     const header = document.getElementById('nav-content')
     const content = document.querySelector('.main-content')
           //?
-    window.addEventListener('hashchange', showView);
-    window.addEventListener('hashchange', showHeader);
+
+    window.onhashchange = showView
+    window.onload = showView
     console.log('entered yama-app-entry')
-    showView();
+   
+    //showView();
     showHeader();
 
     async function showHeader() {
@@ -45,6 +47,7 @@ const routes = require('./routes')
             try {
                 mainContent.innerHTML = await viewTemplate.view.apply(null, params)
                 await viewTemplate.script()
+                
             } catch(err) {
                 console.log(viewTemplate)
                 console.log(err)
