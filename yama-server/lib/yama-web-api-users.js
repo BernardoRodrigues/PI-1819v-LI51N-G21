@@ -35,7 +35,7 @@ module.exports = function (service, router) {
     }
 
     function checkIfUserIsAuthenticated(req, res, next) {
-        if (req.isAuthenticated()) next()
+        if (req.cookies.username) next()
         else response({
             result: {
                 message: "Not authorized"

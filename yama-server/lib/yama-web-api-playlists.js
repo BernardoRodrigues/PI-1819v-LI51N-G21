@@ -114,11 +114,12 @@ module.exports = function (service, router, globalRouter) {
     function getPlaylists(req, resp) {
         try {
             return service
-                .getPlaylists(User.init(null, null, req.cookies.playlistsListId))
+                .getPlaylists(User.init(null, null, req.cookies.playlistsId))
                 .then(mapMultiplePlaylistsDtoToPlaylist)
                 .then((obj) => {return {result: obj, res: resp, status: 200}})
                 .then(response)
-                .catch((err) =>
+                .catch((err) => {
+                    console.log(err)
                     response({
                         result: {
                             message: err.message,
@@ -126,7 +127,8 @@ module.exports = function (service, router, globalRouter) {
                         },
                         resp,
                         status: err.statusCode || 500
-                    }))
+                    })
+                })
         } catch (err) {
             response({
                 result: {
@@ -248,7 +250,8 @@ module.exports = function (service, router, globalRouter) {
 
 
     function mapMultiplePlaylistsDtoToPlaylist(result) {
-        return result.map(mapPlaylistDtoToPlaylist)
+        console.log(result)
+        return result? result.map(mapPlaylistDtoToPlaylist) : []
     }
 
 

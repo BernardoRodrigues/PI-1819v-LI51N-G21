@@ -182,9 +182,8 @@ module.exports = function (request) {
     }
 
     async function getPlaylists(user) {
-
         return request
-            .get(endpoints.get, {
+            .get(endpoints.getAllPlaylistsEndpoint(user.playlistId), {
                 json: true,
 
             })
@@ -289,6 +288,7 @@ module.exports = function (request) {
     }
 
     function mapMultiplePlaylists(result) {
+        console.log(result)
         return result._source.playlists.map((p) => mapPlaylist({
             id: p.id,
             name: p.name
@@ -299,9 +299,9 @@ module.exports = function (request) {
         return Playlist.init(playlist.id, playlist.name, playlist.description, [])
     }
 
-    function mapMultiplePlaylists(result) {
-        return result.hits.hits.map(p => Playlist.init(p._id, p._source.name, p._source.description, []))
-    }
+    // function mapMultiplePlaylists(result) {
+    //     return result.hits.hits.map(p => Playlist.init(p._id, p._source.name, p._source.description, []))
+    // }
 
     function mapPlaylistInfo({
         result,

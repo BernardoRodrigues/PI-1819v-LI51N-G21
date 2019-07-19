@@ -43,8 +43,8 @@ module.exports = async function (homeTemplate, playlistsTemplate, alertScript, a
         const playlistsNav = document.querySelector('#playlistsNav')
         if (playlistsNav) {
             playlistsNav
-                .onclick = () => {
-                    fetch('api/v1.0.0/playlists/')
+                .onclick = function() {
+                    fetch('api/v1.0.0/playlists')
                         .then(async (result) => {
                             console.log(result)
                             const data = await result.json()

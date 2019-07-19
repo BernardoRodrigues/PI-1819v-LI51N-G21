@@ -22,16 +22,18 @@ const routes = require('./routes')
         console.log(document.cookie)
 
         const decodedCookies = document.cookie.split(";")
+        console.log({cookies: decodedCookies})
         let username;
         let playlistsId;
         decodedCookies.forEach(element => {
+            console.log(element)
             if (element.includes("username")) {
                 username = element.split("=")[1]
             } else if (element.includes("playlistsId")) {
                 playlistsId = element.split("=")[1]
             }
         });
-        header.innerHTML = await routes.header.view.apply(null, {username: username, playlistsId: playlistsId})
+        header.innerHTML = await routes.header.view({username: username, playlistsId: playlistsId})
         await routes.header.script()
     }
 

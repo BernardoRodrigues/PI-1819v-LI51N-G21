@@ -39,8 +39,8 @@ module.exports = function() {
         return `http://${elasticSearchUrl}/users/playlists`
     }
 
-    function getAllPlaylistsEndpoint() {
-        return `${createPlaylistsListEndpoint()}/_search`
+    function getAllPlaylistsEndpoint(playlistListId) {
+        return `${createPlaylistsListEndpoint()}/${playlistListId}`
     }
 
     function updatePlaylistsListEndpoint(playlistListId) {

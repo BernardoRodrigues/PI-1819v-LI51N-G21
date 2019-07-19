@@ -13,7 +13,7 @@ module.exports = async function (template, albumInfoScript) {
                             const data = await rsp.json()
                             console.log(data)
                             if (isUserLoggedIn()) {
-                                data['playlistListId'] = getUserCookieData('playlistListId')
+                                data['playlistsId'] = getUserCookieData('playlistsId')
                                 data['username'] = getUserCookieData('username')
                                 fetch('api/v1.0.0/playlists/')
                                     .then(async response => {

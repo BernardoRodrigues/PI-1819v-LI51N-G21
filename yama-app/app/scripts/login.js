@@ -1,28 +1,33 @@
-module.exports = async function (alertScript, alertTemplate) {
+module.exports = async function (alertTemplate, alertScript) {
     return new Promise((resolve, reject) => {
         document.getElementById('sendLoginBtn')
             .onclick = () => {
                 const username = document.getElementById('logInUsername').value
                 const password = document.getElementById('logInPassword').value
-
-                jQuery.post('api/v1.0.0/auth/login', {
-                        username: username,
-                        password: password
-                    })
-                    .done(() => {
-                        alertScript(alertTemplate, {
-                            message: 'Welcome!',
-                            type: 'success'
+                fetch('api/v1.0.0/auth/login', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            username: username,
+                            password: password
                         })
-                        window.location.hash = '#welcome'
-                        resolve()
                     })
-                    .fail(() => {
-                        alertScript(alertTemplate, {
-                            message: 'Invalid Credentials',
-                            type: 'danger'
-                        })
-                        reject()
+                    .then(async rsp => {
+                        if (rsp.ok) {
+                            alertScript(alertTemplate, {
+                                message: 'Welcome!',
+                                type: 'success'
+                            })
+                            window.location.hash = '#welcome'
+                            return resolve()
+                        } else {
+                            alertScript(alertTemplate, {
+                                message: 'Wrong Credentials',
+                                type: 'error'
+                            })
+                        }
                     })
             }
     })

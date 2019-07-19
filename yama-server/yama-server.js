@@ -7,6 +7,7 @@ const passport = require('passport')
 const session = require('express-session')
 const FileStore = require('session-file-store')(session)
 const express = require('express')
+const cookieParser = require('cookie-parser')
 const app = express()
 const rp = require('request-promise')
 const lastFmService = require('./lib/services/lastfm-data')(rp)
@@ -45,6 +46,7 @@ passport.serializeUser(serializeUser)
 passport.deserializeUser(deserializeUser)
 app.use(passport.initialize())
 app.use(passport.session())
+app.use(cookieParser())
 app.use(morgan('dev'))
 app.use('/favicon.ico', express.static(path.join(__dirname, '..', 'yama-app', 'app', 'images', 'favicon.png')))
 app.use('/', express.static(path.join(__dirname,"..", "yama-app", "dist")))
@@ -52,12 +54,12 @@ app.get('/api/version', (req, res) => res.status(200).send(pkg.version));
 console.log({version: version});
 app.use(`/api/${version}/artists`, artistApi)
 app.use(`/api/${version}/auth`, usersApi.router)
+app.use(usersApi.checkIfUserIsAuthenticated)
+app.use(`/api/${version}/playlists`, playlistApi)
 app.use(notFound)
 
 
  
-app.use(usersApi.checkIfUserIsAuthenticated)
-app.use(`/api/${version}/playlists`, playlistApi)
 
 function serializeUser(user, done) {
     done(null, user)

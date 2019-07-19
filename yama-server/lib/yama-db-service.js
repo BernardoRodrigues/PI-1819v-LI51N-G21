@@ -55,10 +55,10 @@ module.exports = function (elasticSearchService) {
     }
 
     async function getPlaylists(userDto) {
-        if (!userDto || !userDto.playlistsId || userDto.playlistsId.length === 0) {
+        if (!userDto || !userDto.playlistsListId || userDto.playlistsListId.length === 0) {
             throw new InvalidParameterError("User cannot be empty", 400)
         }
-        const user = UserDto.init(userDto.username, userDto.password, userDto.playlistsId)
+        const user = UserDto.init(userDto.username, userDto.password, userDto.playlistsListId)
         return elasticSearchService.getPlaylists(user)
     }
 
