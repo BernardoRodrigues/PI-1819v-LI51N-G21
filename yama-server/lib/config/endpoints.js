@@ -28,7 +28,7 @@ module.exports = function() {
     }
 
     function getUsersList() {
-        return `http://${accessUsersEndpoint()}/_search`
+        return `${accessUsersEndpoint()}/_search`
     }
  
     function updateUsersEndpoint(userId) {

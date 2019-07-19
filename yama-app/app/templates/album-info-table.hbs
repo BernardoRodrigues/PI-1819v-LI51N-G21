@@ -1,7 +1,13 @@
 <div class="container" id="album-info">
-    <img src={{images.[1].url}}>
-    <h4 class="text-dark ml-5 mt-5">{{artistName}} - {{name}}</h4>
-
+    <div class="row">
+        <div class="col-sm-4">
+            <img src={{images.[1].url}}>
+        </div>
+        <div class="col-sm-8" sytle="vertical-align:middle">
+            <h4 class="text-dark">{{artistName}} - {{name}}</h4>
+        </div>
+    </div>
+            
     <table class="table table-hover mt-5 ml-5 mr-5">
         <thead>
             <tr>
