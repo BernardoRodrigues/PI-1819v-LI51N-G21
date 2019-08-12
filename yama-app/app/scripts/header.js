@@ -19,24 +19,38 @@ module.exports = async function (homeTemplate, playlistsTemplate, alertScript, a
 
         const logoutBtn = document.getElementById('logoutBtn')
         if (logoutBtn) {
-            logoutBtn
-                .onclick = () => {
-                    jQuery.post('api/v1.0.0/auth/logout')
-                        .done(() => {
-                            alertScript(alertTemplate, {
-                                message: 'We hope to see you soon',
-                                type: 'success'
-                            })
-                            window.location.hash = '#welcome'
-                            resolve()
-                        })
-                        .fail(() => {
-                            alertScript(alertTemplate, {
+            logoutBtn.onclick = function() {
+                    console.log('LOGOUT')
+                    fetch('api/v1.0.0/auth/logout', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    })
+                    .then(async rsp => {
+                        console.log(rsp)
+                        if (rsp.ok) {
+                            deleteCookies()
+                            console.log(document.cookie)
+                            // await alertScript(alertTemplate, {
+                            //     message: 'We hope to see you soon',
+                            //     type: 'success'
+                            // })
+                            window.location = '/'
+                            return resolve()
+                        } else {
+                            await alertScript(alertTemplate, {
                                 message: 'Log out failed. We\'re very sorry',
                                 type: 'warning'
                             })
-                        })
+                            return reject()
+                        }
+                    })
                 }
+        }
+
+        function deleteCookies() {
+            document.cookie = `userId=;Max-Age=-99999999;connect.sid=;Max-Age=-99999999;username=;Max-Age=-99999999;playlistsId=;Max-Age=-99999999;`
         }
 
 

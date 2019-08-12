@@ -6,12 +6,6 @@
 
     <div class="collapse navbar-collapse" id="navabarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item mr-1">
-                <a class="nav-link" href="#playlists" id="nav#playlists"  >
-                    Playlists
-                </a>        
-            </li>
-            
             <li class="nav-item">
                 <button class="btn btn-secondary" id="backBtn" onclick="javascript:history.back()">
                     Back
@@ -20,7 +14,7 @@
 
         </ul>
         {{#if this.username}}
-            <li class="nav-item mr-1 float-right">
+            <div class="nav-item my-2 mr-3 my-sm-0">
                 <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -30,20 +24,20 @@
                         <a class="dropdown-item" id="playlistsNav">Playlists</a>
                     </div>
                 </div>
-            </li>
-            <li class="nav-item mr-0 pull-right">
+            </div>
+            <div class="nav-item my-2 ml-2 my-sm-0">
                 <button class="btn btn-secondary" type="button" id="logoutBtn">
                     Log out
                 </button>
-            </li>
+            </div>
         {{else}}
-            <div class="nav-item my-2 my-sm-0">
+            <div class="nav-item my-2 mr-3 my-sm-0">
                 <button id="loginBtn" type="button" class="btn btn-primary my-2 my-sm-0">
                     Login
                 </button>
             </div>
 
-            <div class="nav-item my-2 my-sm-0 float-right" style="float: right">
+            <div class="nav-item my-2 ml-2 my-sm-0 float-right" style="float: right">
                 <button id="signUpBtn" type="button" class="btn btn-primary">Sign Up</button>
             </div>
 

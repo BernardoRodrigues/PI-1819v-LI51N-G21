@@ -46,7 +46,12 @@ module.exports = function (service, router) {
     }
 
     function logoutUser(req, res) {
-        if (req.isAuthenticated()) {
+        if (req.cookies.username) {
+            res.clearCookie('username')
+            res.clearCookie('playlistsId')
+            res.clearCookie('userId')
+            // res.clearCookie('')
+            res.clearCookie('connect.sid')
             req.logout()
             response({
                 result: {
@@ -90,9 +95,10 @@ module.exports = function (service, router) {
             })
             message = "login successful"
             status = 200
-            req.login(user, (err) => handleError(err, res))
+            // req.login(user, (err) => handleError(err, res))
             res.cookie("username", result.username)
-            res.cookie("playlistsId", result.playlistsListId)
+            res.cookie("playlistsId", result.playlistId)
+            res.cookie("userId", result.id)
         } else {
             message = "login failed"
             status = 400

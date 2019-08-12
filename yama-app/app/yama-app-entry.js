@@ -10,13 +10,21 @@ const routes = require('./routes')
     const mainContent = document.getElementById('main-content')
     const header = document.getElementById('nav-content')
     const content = document.querySelector('.main-content')
-          //?
 
-    window.onhashchange = showView
-    window.onload = showView
+    window.addEventListener('hashchange', function(event) {
+        this.console.log({event: event})
+        showHeader()
+        showView()
+    })
+
+    // window.onhashchange = function(event) {
+    //     console.log()
+    // }
+    // window.onhashchange = showView
+    // window.onhashchange = showHeader
     console.log('entered yama-app-entry')
    
-    //showView();
+    showView();
     showHeader();
 
     async function showHeader() {
@@ -35,6 +43,7 @@ const routes = require('./routes')
                 playlistsId = element.split("=")[1]
             }
         });
+        console.log({username: username, playlistsId: playlistsId})
         header.innerHTML = await routes.header.view({username: username, playlistsId: playlistsId})
         await routes.header.script()
     }
@@ -45,6 +54,8 @@ const routes = require('./routes')
         view = view.substring(1)
         let viewTemplate = routes[view]
         console.log(viewTemplate)
+        console.log(view)
+        console.log(routes)
         if (viewTemplate) {
             try {
                 mainContent.innerHTML = await viewTemplate.view.apply(null, params)

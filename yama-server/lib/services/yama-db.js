@@ -20,7 +20,7 @@ module.exports = function (request) {
                 }
             )
             .then(mapUsersList)
-            .then(users => checkUserCredentials(users, (u) => u.username === user.username))
+            .then(users => users.find(u => u.username === user.username))
             .catch(handleError)
 
     }
@@ -29,14 +29,13 @@ module.exports = function (request) {
         if (!user || !user.username || user.username.length === 0 || !user.password || user.password.length === 0) {
             throw new InvalidParametersError('User cannot be empty', 400)
         }
-        request.get(
+        return request.get(
                 endpoints.getUsersList(), {
                     json: true
                 }
             )
             .then(mapUsersList)
-            .then(users =>
-                checkUserCredentials(users, (u) => u.username === user.username && u.password === user.password))
+            .then(users => users.find(u => u.username === user.username && u.password === user.password))
             .catch(handleError)
     }
 
@@ -59,6 +58,7 @@ module.exports = function (request) {
             .then(res => res._id)
             .catch(handleError)
         user.playlistId = playlistsId
+        console.log(playlistsId)
         return request.post(
                 endpoints.accessUsersEndpoint(), {
                     body: user,
@@ -67,21 +67,15 @@ module.exports = function (request) {
             )
             .then(result => {
                 user.id = result._id
+                console.log({user: user})
                 return user
             })
             .catch(handleError)
     }
 
-    function checkUserCredentials(users, predicate) {
-        const result = users.find(predicate)
-        return result ? true : false
-    }
-
-
     function mapUsersList(result) {
-        console.log(result)
-        return result.hits.hits.map(u => 
-            User.init(u._source.username, u._source.password, u._source.playlistId, u._id))
+        // console.log(result.hits.hits)
+        return result.hits.hits.map(u => User.init(u._source.username, u._source.password, u._source.playlistId, u._id))
     }
 
     async function createPlaylist(playlist, user) {
@@ -274,6 +268,7 @@ module.exports = function (request) {
     }
 
     function handleError(err) {
+        console.error(err)
         if (err.status && err.status === 400) {
             throw new InvalidParametersError("Invalid parameters", 400)
         }
