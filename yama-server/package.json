@@ -18,10 +18,10 @@
   },
   "homepage": "https://github.com/BernardoRodrigues/PI-1819v-LI51N-G21#readme",
   "dependencies": {
-    "body-parser": "^1.19.0",
+    "body-parser": "^1.20.1",
     "bootstrap": "^4.3.1",
     "cookie-parser": "^1.4.4",
-    "express": "^4.16.4",
+    "express": "^4.18.2",
     "express-favicon": "^2.0.1",
     "express-file-store": "^1.0.3",
     "express-handlebars": "^3.1.0",
